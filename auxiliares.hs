@@ -64,7 +64,7 @@ compara x ((y,_):ys) = x == y || compara x ys
 
 -- relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
 
-sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+-- sonDeLaRed :: RedSocial -> [Usuario] -> Bool
 
 
 -- Devuelve True en el caso de que el primero elemento de la lista sea x

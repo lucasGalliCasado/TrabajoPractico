@@ -25,6 +25,10 @@ borrar _ [] = []
 borrar x (y:ys) | x == y = ys
                 | otherwise = y : borrar x ys
 
+{-
+Me parece que esta version de borrar no elemina elementos que se repiten, por ahora la deje asi, pero lo pongo aca por las dudas
+-}
+
 -- redSocialValida :: RedSocial -> Bool
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
@@ -48,7 +52,9 @@ compara :: Integer -> [Usuario] -> Bool
 compara _ [] = False
 compara x ((y,_):ys) = x == y || compara x ys
 
--- relacionesValidas :: [Usuario] -> [Relacion] -> Bool
+relacionesValidas :: [Usuario] -> [Relacion] -> Bool
+
+
 
 -- usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
 

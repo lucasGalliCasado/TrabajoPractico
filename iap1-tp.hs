@@ -37,15 +37,24 @@ likesDePublicacion (_, _, us) = us
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = removeId (usuarios RedSocial) (length ((usuarios RedSocial) - 1) )
+nombresDeUsuarios = proyectarNombres (usuarios RedSocial) (length ((usuarios RedSocial) - 1) )
 
--- Para los ultimos n+1 elementos de la lista de Usuarios, extrae el segundo elemento de la terna y los vuelca a una lista del tipo String
-removeId :: [Usuario] -> Int -> [String]
-removeId us 0 = us[0][1]
-removeId us n = (us[n][1]):removeId us (n-1)
-
+proyectarNombres :: [Usuario] -> [String]
+proyectarNombres [] = []
+proyectarNombres (us:uss) = us[1]: proyectarNombres uss
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
+
+{-
+Aca lo hice sin funciones auxiliares, pero su compilacion es mas dudosa. Despues cuando testeamos habria que ver si anda.
+
+amigosDe :: RedSocial -> Usuario -> [Usuario]
+amigosDe ([],rs,ps) u = []
+amigosDe (us:uss,rs,ps) u | (pertenece [us,u] rs || pertenece [u,us] rs) = us: amigosDe (uss,rs,ps) u
+                          | otherwise = amigosDe (uss,rs,ps) u
+
+-}
+
 
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
@@ -57,10 +66,7 @@ pruebaRelacion :: [Relacion] -> [Usuario] -> Usuario -> [Usuario]
 pruebaRelacion rs [] u = []
 pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs) == True) =  us:pruebaRelacion rs uss u
 
--- Dada una lista de Relaciones y una Relacion fija R, prueba si R esta en la lista
-existeRelacion :: [Relacion] -> Relacion -> Bool
-existeRelacion rs r | pertenece r rs = True
-                    | otherwise = False
+
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....

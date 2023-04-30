@@ -53,6 +53,7 @@ noHayIdsRepetidos [_] = True
 noHayIdsRepetidos ((x,_):xs) = not (comparaID x xs) && noHayIdsRepetidos xs
 
 -- Verifica si el x (ID) ingresado se repite en el resto de la lista
+
 comparaID :: Integer -> [Usuario] -> Bool
 comparaID _ [] = False
 comparaID x ((y,_):ys) = x == y || comparaID x ys
@@ -76,6 +77,18 @@ noHayRelacionesRepetidas :: [Relacion] -> Bool
 noHayRelacionesRepetidas [] = True
 noHayRelacionesRepetidas (r:rs) | (pertenece r rs == True) = False
                                 | otherwise = (True && noHayRelacionesRepetidas rs)
+=======
+compara :: Integer -> [Usuario] -> Bool
+compara _ [] = False
+compara x ((y,_):ys) = x == y || compara x ys
+
+relacionesValidas :: [Usuario] -> [Relacion] -> Bool
+
+
+
+-- usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
+
+-- relacionesAsimetricas :: [Relacion] -> Bool
 
 
 -- publicacionesValidas :: [Usuario] -> [Publicacion] -> Bool

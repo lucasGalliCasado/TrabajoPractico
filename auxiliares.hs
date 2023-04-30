@@ -5,6 +5,11 @@ type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
 type RedSocial = ([Usuario], [Relacion], [Publicacion])
 
+invertirLista :: (Eq t) => [t] -> [t]
+invertirLista (t:[]) = [t]
+invertirLista (t:ts) = (invertirLista ts) ++ [t] 
+
+
 -- Verifica si un "x" pertenece a una lista
 pertenece :: (Eq t) => t -> [t] -> Bool
 pertenece _ [] = False
@@ -45,9 +50,34 @@ usuarioValido (x,y) | x > 0 && y /= [] = True
 noHayIdsRepetidos :: [Usuario] -> Bool
 noHayIdsRepetidos [] = True
 noHayIdsRepetidos [_] = True
-noHayIdsRepetidos ((x,_):xs) = not (compara x xs) && noHayIdsRepetidos xs
+noHayIdsRepetidos ((x,_):xs) = not (comparaID x xs) && noHayIdsRepetidos xs
 
 -- Verifica si el x (ID) ingresado se repite en el resto de la lista
+
+comparaID :: Integer -> [Usuario] -> Bool
+comparaID _ [] = False
+comparaID x ((y,_):ys) = x == y || comparaID x ys
+
+-- Dada una lista de Usuarios y otra de Relaciones, devuelve True si son validas
+relacionesValidas :: [Usuario] -> [Relacion] -> Bool
+relacionesValidas u r = (usuariosDeRelacionValidos u r) && (relacionesAsimetricas u r) && (noHayRelacionesRepetidas u r)
+
+--Recibe una lista de Relaciones y otra de Usuarios. Da True si todas las Relaciones esten definidas entre Usuarios de la lista 
+usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
+usuariosDeRelacionValidos [] = True
+usuariosDeRelacionValidos u (r:rs) = (pertenece r[0] u) && (pertenece r[1] u) && (usuariosDeRelacionValidos u rs)
+
+-- Recibe una lista de Relaciones y devuelve True si para toda relacion, su simetria no esta en la lista
+relacionesAsimetricas :: [Relacion] -> Bool
+relacionesAsimetricas (r:[]) = True
+relacionesAsimetricas (r:rs) = not( pertenece (invertirLista r) rs) && (relacionesAsimetricas rs) 
+
+-- Recibe una lista de Relaciones y retorna True si no hay relaciones repetidas, notese que cuenta una permutacion como una relacion distinta                             
+noHayRelacionesRepetidas :: [Relacion] -> Bool
+noHayRelacionesRepetidas [] = True
+noHayRelacionesRepetidas (r:rs) | (pertenece r rs == True) = False
+                                | otherwise = (True && noHayRelacionesRepetidas rs)
+=======
 compara :: Integer -> [Usuario] -> Bool
 compara _ [] = False
 compara x ((y,_):ys) = x == y || compara x ys
@@ -60,7 +90,6 @@ relacionesValidas :: [Usuario] -> [Relacion] -> Bool
 
 -- relacionesAsimetricas :: [Relacion] -> Bool
 
--- noHayRelacionesRepetidas :: [Relacion] -> Bool
 
 -- publicacionesValidas :: [Usuario] -> [Publicacion] -> Bool
 

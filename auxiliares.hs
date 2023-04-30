@@ -1,3 +1,5 @@
+
+
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
@@ -16,7 +18,7 @@ mismosElementos [] _ = False
 mismosElementos _ [] = False
 mismosElementos (x:xs) y    | pertenece x y = mismosElementos xs (borrar x y)
                             | otherwise = False
-
+                            
 -- Si un elemento forma parte de la lista lo borra
 borrar :: Eq t => t -> [t] -> [t]
 borrar _ [] = []
@@ -83,5 +85,5 @@ terminaCon x (y:ys) = terminaCon x ys
 sinRepetidos :: Eq t => [t] -> Bool
 sinRepetidos x = not (conRepetidos x)
             where 
-                conRepetidos [] = False
-                conRepetidos (x:xs) = pertenece x xs || conRepetidos xs
+             conRepetidos [] = False
+             conRepetidos (x:xs) = pertenece x xs || conRepetidos xs

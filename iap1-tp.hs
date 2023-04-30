@@ -6,13 +6,10 @@
 -- Integrante 3: Peralta Diessler Bernardo, bernardodiessler@gmail.com, 1395/21
 -- Integrante 4: Galli Casado Sastre Lucas Federico, lucasgalli01@gmail.com, 739/21
 
-
-
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
 type RedSocial = ([Usuario], [Relacion], [Publicacion])
--- | Observacion : String = [Char]
 
 -- Funciones basicas
 
@@ -37,9 +34,6 @@ usuarioDePublicacion (u, _, _) = u
 likesDePublicacion :: Publicacion -> [Usuario]
 likesDePublicacion (_, _, us) = us
 
--- Ejercicios
-
-import auxiliares.hs
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
 nombresDeUsuarios :: RedSocial -> [String]
@@ -56,12 +50,12 @@ removeId us n = (us[n][1]):removeId us (n-1)
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe (us,rs,ps) U = pruebaRelacion rs us U 
+amigosDe (us,rs,ps) u = pruebaRelacion rs us u 
 
 -- Recibe lista de Relaciones, Lista de Usuarios y un Usuario fijo U. Devuelve una lista de los usuarios que tienen relacion con U
 pruebaRelacion :: [Relacion] -> [Usuario] -> Usuario -> [Usuario]
-pruebaRelacion rs [] U = []
-pruebaRelacion rs (us:uss) U | ((pertenece [us, U] rs) || (pertenece [us, U] rs) == True) =  us:pruebaRelacion rs uss U
+pruebaRelacion rs [] u = []
+pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs) == True) =  us:pruebaRelacion rs uss u
 
 -- Dada una lista de Relaciones y una Relacion fija R, prueba si R esta en la lista
 existeRelacion :: [Relacion] -> Relacion -> Bool

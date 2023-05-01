@@ -77,25 +77,26 @@ noHayRelacionesRepetidas :: [Relacion] -> Bool
 noHayRelacionesRepetidas [] = True
 noHayRelacionesRepetidas (r:rs) | (pertenece r rs == True) = False
                                 | otherwise = (True && noHayRelacionesRepetidas rs)
-=======
-compara :: Integer -> [Usuario] -> Bool
-compara _ [] = False
-compara x ((y,_):ys) = x == y || compara x ys
-
-relacionesValidas :: [Usuario] -> [Relacion] -> Bool
 
 
+publicacionesValidas :: [Usuario] -> [Publicacion] -> Bool
+publicacionesValidas u p = (usuariosDePublicacionSonUsuariosDeRed u p) && (noHayPublicacionesRepetidas p)
 
--- usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
+usuariosDePublicacionSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
+usuariosDePublicacionSonUsuariosDeRed u [] = True
+usuariosDePublicacionSonUsuariosDeRed u (p:ps) = (pertenece (usuarioDePublicacion p) u) && usuariosDePublicacionSonUsuariosDeRed u ps
 
--- relacionesAsimetricas :: [Relacion] -> Bool
+-- Recibe un lista de Publicaciones y devuelve True si no hay ninguna repetida
+noHayPublicacionesRepetidas :: [Publicacion] -> Bool
+noHayPublicacionesRepetidas (p:[]) = True
+noHayPublicacionesRepetidas ((us,tx,l):ps) = not (pertenece (idDeUsuario us,tx) (iDyTexto ps)) && noHayPublicacionesRepetidas ps
+                                           
+-- Auxiliar de noHayPublicacionesRepetidas
+-- Recibe una lista de Publicaciones y devuelve una lista de los ID's y textos de las mismas respetando el orden
+iDyTexto :: [Publicacion] -> [(Integer,String)]
+iDyTexto [] = []
+iDyTexto ((us,tx,l):p) = (idDeUsuario us,tx) : iDyTexto p
 
-
--- publicacionesValidas :: [Usuario] -> [Publicacion] -> Bool
-
--- usuariosDePublicacionSonUsuariosDeRed :: [Usuario] -> [Publicacion] -> Bool
-
--- noHayPublicacionesRepetidas :: [Publicacion] -> Bool
 
 -- cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
 

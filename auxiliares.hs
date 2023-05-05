@@ -24,15 +24,20 @@ mismosElementos _ [] = False
 mismosElementos (x:xs) y    | pertenece x y = mismosElementos xs (borrar x y)
                             | otherwise = False
                             
--- Si un elemento forma parte de la lista lo borra
-borrar :: Eq t => t -> [t] -> [t]
+-- Si un elemento forma parte de la lista lo borra UNA SOLA VEZ
+borrar :: (Eq t) => t -> [t] -> [t]
 borrar _ [] = []
 borrar x (y:ys) | x == y = ys
                 | otherwise = y : borrar x ys
 
+-- Si un elemento forma parte de la lista lo saca TODAS LAS VECES QUE APARECE
+sacarRepetidos :: (Eq t) => t -> [t] -> [t]
+sacarRepetidos _ [] = []
+sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
+                        | otherwise = y : sacarRepetidos x ys
 {-
 Me parece que esta version de borrar no elemina elementos que se repiten, por ahora la deje asi, pero lo pongo aca por las dudas
--}
+Corrección : (1)  Falta de paréntesis en Eq t, (2) No saca todos los repetidos, cree sacar Repetidos -}
 
 -- redSocialValida :: RedSocial -> Bool
 

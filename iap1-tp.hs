@@ -37,7 +37,7 @@ likesDePublicacion (_, _, us) = us
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = proyectarNombres (usuarios RedSocial) (length ((usuarios RedSocial) - 1) )
+nombresDeUsuarios = proyectarNombres (usuarios RedSocial)
 
 proyectarNombres :: [Usuario] -> [String]
 proyectarNombres [] = []
@@ -50,7 +50,7 @@ Aca lo hice sin funciones auxiliares, pero su compilacion es mas dudosa. Despues
 
 amigosDe :: RedSocial -> Usuario -> [Usuario]
 amigosDe ([],rs,ps) u = []
-amigosDe (us:uss,rs,ps) u | (pertenece [us,u] rs || pertenece [u,us] rs) = us: amigosDe (uss,rs,ps) u
+amigosDe ((us:uss),rs,ps) u | (pertenece [us,u] rs || pertenece [u,us] rs) = us: amigosDe (uss,rs,ps) u
                           | otherwise = amigosDe (uss,rs,ps) u
 
 -}

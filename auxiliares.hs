@@ -35,11 +35,11 @@ sacarRepetidos :: (Eq t) => t -> [t] -> [t]
 sacarRepetidos _ [] = []
 sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
                         | otherwise = y : sacarRepetidos x ys
-{-
-Me parece que esta version de borrar no elemina elementos que se repiten, por ahora la deje asi, pero lo pongo aca por las dudas
-Corrección : (1)  Falta de paréntesis en Eq t, (2) No saca todos los repetidos, cree sacar Repetidos -}
 
--- redSocialValida :: RedSocial -> Bool
+
+redSocialValida :: RedSocial -> Bool
+redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
+
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
 usuariosValidos :: [Usuario] -> Bool
@@ -103,11 +103,17 @@ iDyTexto [] = []
 iDyTexto ((us,tx,l):p) = (idDeUsuario us,tx) : iDyTexto p
 
 
--- cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
+cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
+cadenaDeAmigos [us] = True
+cadenaDeAmigos (u,us) = relacionadosDirecto u (head us) && cadenaDeAmigos us
 
--- relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
+relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
+relacionadosDirecto u1 u2 (us,rel,pub) = (pertenece (u1,u2) rel) || (pertenece (u2,u1) rel)
 
--- sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+
+sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+sonDeLaRed (u,_,_) [uss] = pertenece uss u
+sonDeLaRed (u,_,_) (us:uss) = pertenece us u && sonDeLaRed
 
 
 -- Devuelve True en el caso de que el primero elemento de la lista sea x

@@ -37,7 +37,7 @@ likesDePublicacion (_, _, us) = us
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = proyectarNombres (usuarios RedSocial) (length ((usuarios RedSocial) - 1) )
+nombresDeUsuarios = proyectarNombres (usuarios RedSocial)
 
 proyectarNombres :: [Usuario] -> [String]
 proyectarNombres [] = []

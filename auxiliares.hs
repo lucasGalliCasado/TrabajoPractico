@@ -24,17 +24,22 @@ mismosElementos _ [] = False
 mismosElementos (x:xs) y    | pertenece x y = mismosElementos xs (borrar x y)
                             | otherwise = False
                             
--- Si un elemento forma parte de la lista lo borra
-borrar :: Eq t => t -> [t] -> [t]
+-- Si un elemento forma parte de la lista lo borra UNA SOLA VEZ
+borrar :: (Eq t) => t -> [t] -> [t]
 borrar _ [] = []
 borrar x (y:ys) | x == y = ys
                 | otherwise = y : borrar x ys
 
-{-
-Me parece que esta version de borrar no elemina elementos que se repiten, por ahora la deje asi, pero lo pongo aca por las dudas
--}
+-- Si un elemento forma parte de la lista lo saca TODAS LAS VECES QUE APARECE
+sacarRepetidos :: (Eq t) => t -> [t] -> [t]
+sacarRepetidos _ [] = []
+sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
+                        | otherwise = y : sacarRepetidos x ys
 
--- redSocialValida :: RedSocial -> Bool
+
+redSocialValida :: RedSocial -> Bool
+redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
+
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
 usuariosValidos :: [Usuario] -> Bool
@@ -98,11 +103,17 @@ iDyTexto [] = []
 iDyTexto ((us,tx,l):p) = (idDeUsuario us,tx) : iDyTexto p
 
 
--- cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
+cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
+cadenaDeAmigos [us] = True
+cadenaDeAmigos (u,us) = relacionadosDirecto u (head us) && cadenaDeAmigos us
 
--- relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
+relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
+relacionadosDirecto u1 u2 (us,rel,pub) = (pertenece (u1,u2) rel) || (pertenece (u2,u1) rel)
 
--- sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+
+sonDeLaRed :: RedSocial -> [Usuario] -> Bool
+sonDeLaRed (u,_,_) [uss] = pertenece uss u
+sonDeLaRed (u,_,_) (us:uss) = pertenece us u && sonDeLaRed
 
 
 -- Devuelve True en el caso de que el primero elemento de la lista sea x

@@ -80,9 +80,22 @@ sumaTotalDeAmigos (us:uss) = 1 + sumTotalDeAmigos (uss)
 
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- devuelve el usuarion con mas amigos de la red social
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos = undefined
+usuarioConMasAmigos rs = usuarioConMasAmigos2 rs usuarios
+
+usuarioConMasAmigos2:: RedSocial -> [Usuario] -> Usuario 
+usuarioConMasAmigos2 rs u | cantidadDeUsuarios u == 1 = us
+usuarioConMasAmigos2 rs (us:uss:usss)| cantidadDeAmigos (rs us) <= cantidadDeAmigos (rs uss) = usuarioConMasAmigos2 rs (uss:usss) 
+                                     | otherwise = usuarioConMasAmigos2 rs (us:usss)
+
+
+cantidadDeUsuarios :: [Usuarios] -> Int
+cantidadDeUsuarios [] = 0
+cantidadDeUsuarios (u:us) = 1 + cantidadDeUsuarios us
+
+
+
 
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------

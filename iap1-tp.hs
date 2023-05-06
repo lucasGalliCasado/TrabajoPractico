@@ -71,7 +71,11 @@ pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs)
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+cantidadDeAmigos rs us = sumaTotalDeAmigos (amigosDe rs us)
+
+sumaTotalDeAmigos :: [Usuarios]-> Int
+sumaTotalDeAmigos [] = 0
+sumaTotalDeAmigos (us:uss) = 1 + sumTotalDeAmigos (uss)
 
 
 

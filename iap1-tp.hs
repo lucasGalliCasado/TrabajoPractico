@@ -85,8 +85,8 @@ usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos rs = usuarioConMasAmigos2 rs usuarios
 
 usuarioConMasAmigos2:: RedSocial -> [Usuario] -> Usuario 
-usuarioConMasAmigos2 rs u | cantidadDeUsuarios u == 1 = us
-usuarioConMasAmigos2 rs (us:uss:usss)| cantidadDeAmigos (rs us) <= cantidadDeAmigos (rs uss) = usuarioConMasAmigos2 rs (uss:usss) 
+usuarioConMasAmigos2 rs (us:uss:usss)| cantidadDeUsuarios (us:uss:usss) == 1 = us
+                                     | cantidadDeAmigos (rs us) <= cantidadDeAmigos (rs uss) = usuarioConMasAmigos2 rs (uss:usss) 
                                      | otherwise = usuarioConMasAmigos2 rs (us:usss)
 
 

@@ -94,20 +94,25 @@ cantidadDeUsuarios :: [Usuarios] -> Int
 cantidadDeUsuarios [] = 0
 cantidadDeUsuarios (u:us) = 1 + cantidadDeUsuarios us
 
-
-
-
-
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos = undefined
+estaRobertoCarlos rs = algo rs usuarios -- es raro este ejercicio, no pide que robertocarlos sea  nombre de un usuario, lo que hace es pedir que exista algun usuario con mas de 1 millon de amigos 
 
+algo :: RedSocial -> [Usuarios] -> Bool
+algo rs [] = False
+algo rs (us:uss) | cantidadDeAmigos (rs us) > 1000000 = True
+                 | otherwise = algo rs uss
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe = undefined
+publicacionesDe rs u = TodasLasPublicacionesDe (publicaciones rs) u 
+
+TodasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
+TodasLasPublicacionesDe [] u = []  
+TodasLasPublicacionesDe (p:ps) u | usuarioDePublicacion p u == u = p : TodasLasPublicacionesDe ps u 
+                                 | otherwise = TodasLasPublicacionesDe ps u 
 
 
 
@@ -115,15 +120,27 @@ publicacionesDe = undefined
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA rs u = sinNombre (publicaciones rs) u 
+
+sinNombre ::[Publicacion] -> Usuario -> [Publicacion] -- mecuesta ponerle nombre, pero lo que hace es dejar las publicaciones que le gustan al usuario y las que no las descarta
+sinNombre [] u = []
+sinNombre (p:ps) u |likesDePublicacion p  == u = p : sinNombre ps u
+                   | otherwise = sinNombre ps u
 
 
 --- | Ejericio 8 |-----------------------------------------------------------------------------------------------------------------------------
 
 -- describir qué hace la función: .....
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones = undefined
+lesGustanLasMismasPublicaciones rs u1 u2 = sonIguales (publicacionesQueLeGustanA rs u1) (publicacionesQueLeGustanA  rs u2)  
 
+sonIguales :: [Publicacion] ->[Publicacion] -> Bool
+sonIguales [] [] = True -- como no tienen ningun elemento considero que si son iguales (puede estar mal)
+sonIguales [] _ = False
+sonIguales _ [] = False
+sonIguales (p1:p1s) (p2:p2s) | pertenece (p1 p2) && pertenece (p2 p1) = sonIguales p1s p2s
+                             | pertenece (p2 p1) && not (pertenece (p1 p2)) = False
+                             | pertenece (p1 p2) && not (pertenece (p2 p1)) = False 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------
 

@@ -95,14 +95,13 @@ cantidadDeUsuarios [] = 0
 cantidadDeUsuarios (u:us) = 1 + cantidadDeUsuarios us
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
-estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos rs = algo rs usuarios rs -- es raro este ejercicio, no pide que robertocarlos sea  nombre de un usuario, lo que hace es pedir que exista algun usuario con mas de 1 millon de amigos 
 
-algo :: RedSocial -> [Usuarios] -> Bool
-algo rs [] = False
-algo rs (us:uss) | cantidadDeAmigos (rs us) > 1000000 = True
-                 | otherwise = algo rs uss
+-- Devuelve True en caso de que exista
+estaRobertoCarlos2:: RedSocial -> Bool
+estaRobertoCarlos2 ([],rs,p) = False
+estaRobertoCarlos2 ((u:us),rs,p) | cantidadDeAmigos (us,rs,p) u > 1000000 = True
+                                 | otherwise = estaRobertoCarlos2 (us,rs,p) 
+
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....

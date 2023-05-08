@@ -137,13 +137,3 @@ existeSecuenciaDeAmigos = undefined
 
 
 
-
--------Funciones Auxiliares------------------------------------------------------------------------------------------------------------------
-
--- Verifica si un "x" pertenece a una lista
-pertenece :: (Eq t) => t -> [t] -> Bool
-pertenece _ [] = False
-pertenece n (x:xs)  | n == x = True
-                    | n /= x = pertenece n xs
-
-

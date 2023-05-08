@@ -6,6 +6,9 @@
 -- Integrante 3: Peralta Diessler Bernardo, bernardodiessler@gmail.com, 1395/21
 -- Integrante 4: Galli Casado Sastre Lucas Federico, lucasgalli01@gmail.com, 739/21
 
+import Auxiliares 
+
+
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)

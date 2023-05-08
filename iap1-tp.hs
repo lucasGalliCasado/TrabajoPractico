@@ -97,7 +97,7 @@ cantidadDeUsuarios (u:us) = 1 + cantidadDeUsuarios us
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos rs = algo rs usuarios -- es raro este ejercicio, no pide que robertocarlos sea  nombre de un usuario, lo que hace es pedir que exista algun usuario con mas de 1 millon de amigos 
+estaRobertoCarlos rs = algo rs usuarios rs -- es raro este ejercicio, no pide que robertocarlos sea  nombre de un usuario, lo que hace es pedir que exista algun usuario con mas de 1 millon de amigos 
 
 algo :: RedSocial -> [Usuarios] -> Bool
 algo rs [] = False

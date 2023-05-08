@@ -71,8 +71,11 @@ pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs)
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = 
+cantidadDeAmigos (u,r,p) us = contadorRel us r 0
 
+contadorRel :: Usuario -> [Relaciones] -> Int -> Int
+contadorRel u (r:rs) c | pertenece u r = contadorRel u (r:rs) (c+1)
+                       | otherwise = contadorRel u (r:rs) c
 
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------

@@ -71,14 +71,22 @@ pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs)
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+cantidadDeAmigos = 
 
 
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+
+-- Devuelve el usuario con mayor cantidad de amigos
+-- Ojo! La recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos = undefined
+usuarioConMasAmigos ((u:[]),r,p) = u
+usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeAmigos ((u:us),r,p) (head us) = usuarioConMasAmigos ((u:tail us),r,p)
+                                 | otherwise = usuarioConMasAmigos (us,r,p)
+
+
+
+
 
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------

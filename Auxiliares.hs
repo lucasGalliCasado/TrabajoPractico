@@ -1,3 +1,5 @@
+module Auxiliares where
+
 
 
 type Usuario = (Integer, String) -- (id, nombre)

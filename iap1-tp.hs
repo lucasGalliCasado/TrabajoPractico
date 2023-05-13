@@ -90,10 +90,6 @@ usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeA
                                  | otherwise = usuarioConMasAmigos (us,r,p)
 
 
-
-
-
-
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 estaRobertoCarlos :: RedSocial -> Bool
@@ -116,9 +112,9 @@ publicacionesQueLeGustanA = undefined
 
 --- | Ejericio 8 |-----------------------------------------------------------------------------------------------------------------------------
 
--- describir qué hace la función: .....
+-- Dados dos usuarios nos da True si le han dado like a las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones = undefined
+lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGustanA(r,u1)) (publicacionesQueLeGustanA(r,u2))
 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------

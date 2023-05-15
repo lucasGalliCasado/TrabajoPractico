@@ -55,9 +55,8 @@ amigosDe = undefined
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos red u
-  | redSocialValida red && usuarioValido u && pertenece u (usuarios red) = longitud (amigosDe red u)
-  | otherwise = 0
+cantidadDeAmigos red u  | redSocialValida red && usuarioValido u && pertenece u (usuarios red) = longitud (amigosDe red u)
+                        | otherwise = 0
 
 
 

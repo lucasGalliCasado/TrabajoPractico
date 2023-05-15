@@ -7,7 +7,7 @@ import Resoluciones
 
 
 --main = runTestTT tests
---run1 = runTestTT testEjercicio1
+run1 = runTestTT testEjercicio1
 --run2 = runTestTT testEjercicio2
 --run3 = runTestTT testEjercicio3
 run4 = runTestTT testEjercicio4
@@ -44,7 +44,10 @@ tests = test [
    ]-}
 
 
---testEjercicio1= test []
+testEjercicio1= test [
+    " nombresDeUsuarios 1" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"],
+    " nombresDeUsuarios 2" ~: (nombresDeUsuarios redC) ~?= ["Juan","Natalia","Pedro","Mariela","Natalia","Lucas","Connie"]
+ ]
 
 --testEjercicio2= test []
 
@@ -105,7 +108,10 @@ usuario8 = (8, "Susy")
 usuario9 = (9, "Alfonso")
 
 
--- Usuarios creados por Ana para testear los ejercicios ...
+-- Usuarios creados por Ana para testear los ejercicios 1 y 5
+usuario10 = (10, "Ana")
+usuario11 = (11, "Mia")
+
 
 -- Usuarios creados por Berny para testear los ejericios ...
 

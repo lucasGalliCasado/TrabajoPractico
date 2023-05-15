@@ -49,8 +49,16 @@ nombresDeUsuarios = undefined
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
+-- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
+-- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe = undefined
+amigosDe (us,rs,ps) u = pruebaRelacion rs us u 
+
+-- Recibe lista de Relaciones, Lista de Usuarios y un Usuario fijo U. Devuelve una lista de los usuarios que tienen relacion con U
+pruebaRelacion :: [Relacion] -> [Usuario] -> Usuario -> [Usuario]
+pruebaRelacion rs [] u = []
+pruebaRelacion rs (us:uss) u | (pertenece (us, u) rs) || (pertenece (u, us) rs) = us : pruebaRelacion rs uss u
+                             | otherwise = pruebaRelacion rs uss u
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....

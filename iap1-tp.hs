@@ -106,7 +106,7 @@ estaRobertoCarlos2 ((u:us),rs,p) | cantidadDeAmigos (us,rs,p) u > 1000000 = True
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe rs u = TodasLasPublicacionesDe (publicaciones rs) u 
+publicacionesDe rs u = todasLasPublicacionesDe (publicaciones rs) u 
 
 todasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
 todasLasPublicacionesDe [] u = []  

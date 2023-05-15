@@ -108,10 +108,10 @@ estaRobertoCarlos2 ((u:us),rs,p) | cantidadDeAmigos (us,rs,p) u > 1000000 = True
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe rs u = TodasLasPublicacionesDe (publicaciones rs) u 
 
-TodasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
-TodasLasPublicacionesDe [] u = []  
-TodasLasPublicacionesDe (p:ps) u | usuarioDePublicacion p u == u = p : TodasLasPublicacionesDe ps u 
-                                 | otherwise = TodasLasPublicacionesDe ps u 
+todasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
+todasLasPublicacionesDe [] u = []  
+todasLasPublicacionesDe (p:ps) u | usuarioDePublicacion p u == u = p : todasLasPublicacionesDe ps u 
+                                 | otherwise = todasLasPublicacionesDe ps u 
 
 
 

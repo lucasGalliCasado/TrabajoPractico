@@ -33,6 +33,14 @@ likesDePublicacion (_, _, us) = us
 
 ---- Funciones Auxiliares
 
+interseccion :: (Eq t) => [t] -> [t] -> [t]
+interseccion _ [] = []
+interseccion [] _ = []
+interseccion (a:as) b | (pertenece a b == True) = a:interseccion as b  
+                      | otherwise = interseccion as b
+
+
+
 invertirLista :: (Eq t) => [t] -> [t]
 invertirLista (t:[]) = [t]
 invertirLista (t:ts) = (invertirLista ts) ++ [t] 

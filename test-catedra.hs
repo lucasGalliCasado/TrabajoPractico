@@ -15,7 +15,7 @@ run4 = runTestTT testEjercicio4
 --run6 = runTestTT testEjercicio6
 run7 = runTestTT testEjercicio7
 run8 = runTestTT testEjercicio8
---run9 = runTestTT testEjercicio9
+run9 = runTestTT testEjercicio9
 --run10 = runTestTT testEjercicio10
 
 {-
@@ -69,7 +69,10 @@ testEjercicio8 = test [
     " lesGustanLasMismasPublicaciones NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True
  ]
  
---testEjercicio9 = test []
+testEjercicio9 = test [
+    " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True
+
+ ]
  
 --testEjercicio10 = test []
 

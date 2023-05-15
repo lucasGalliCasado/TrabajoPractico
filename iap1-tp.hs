@@ -6,6 +6,8 @@
 -- Integrante 3: Peralta Diessler Bernardo, bernardodiessler@gmail.com, 1395/21
 -- Integrante 4: Galli Casado Sastre Lucas Federico, lucasgalli01@gmail.com, 739/21
 
+module Solucion where
+
 import Auxiliares 
 
 type Usuario = (Integer, String) -- (id, nombre)
@@ -71,7 +73,7 @@ pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs)
 
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- Recibe un usuario y devuelve la cantidad de amigos que tiene
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos (u,r,p) us = contadorRel us r 0
 

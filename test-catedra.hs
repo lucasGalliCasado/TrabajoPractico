@@ -1,5 +1,8 @@
 import Test.HUnit
+-- Linea original: import solucion
 import Solucion
+
+
 
 main = runTestTT tests
 
@@ -23,18 +26,52 @@ tests = test [
     " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True,
 
     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+
+-- Testeos de Lucas
+    -- Testeos Propios Ejercicio 4
+    
+
+    -- Testeos Propios Ejercicio 8 
+    " lesGustanLasMismasPublicaciones 3" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
+    " lesGustanLasMismasPublicaciones 4" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True,
+
+
+
+
+
  ]
 
 expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
 
--- Ejemplos
 
+-- Usuarios 'Default'
 usuario1 = (1, "Juan")
 usuario2 = (2, "Natalia")
 usuario3 = (3, "Pedro")
 usuario4 = (4, "Mariela")
 usuario5 = (5, "Natalia")
 
+-- Usuarios creados por Lucas para testear los ejercicios 4 y 8
+usuario6 = (6, "Lucas")
+usuario7 = (7, "Connie")
+usuario8 = (8, "Susy")
+usuario9 = (9, "Alfonso")
+
+-- IMPORTANTE!!!! 
+
+-- NO AGREAGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
+-- NO MODIFIQUEN LAS REDES DEFAULT NI LAS QUE HAYAN HECHO OTRAS PERSONAS
+-- NO PASA NADA SI USAN UNA RED CREADA POR OTRA PERSONA EN SU TESTEO, PERO NO LA MODIFIQUEN!!!!!
+-- PARA CREAR REALCIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
+
+-- Usuarios creados por Ana para testear los ejercicios ...
+
+-- Usuarios creados por Berny para testear los ejericios ...
+
+-- Usuarios creados por Jos para testear los ejercicios ... 
+
+
+-- Relaciones "Default"
 relacion1_2 = (usuario1, usuario2)
 relacion1_3 = (usuario1, usuario3)
 relacion1_4 = (usuario4, usuario1) -- Notar que el orden en el que aparecen los usuarios es indistinto
@@ -42,6 +79,25 @@ relacion2_3 = (usuario3, usuario2)
 relacion2_4 = (usuario2, usuario4)
 relacion3_4 = (usuario4, usuario3)
 
+-- Relaciones creadas por Lucas
+relacion1_5 = (usuario1, usuario5)
+relacion1_6 = (usuario1, usuario6)
+relacion1_7 = (usuario1, usuario7)
+relacion1_8 = (usuario1, usuario8)
+relacion1_9 = (usuario1, usuario9)
+
+-- Relaciones creadas por Ana 
+
+
+-- Relaciones creadas por Berny 
+
+
+-- Relaciones creadas por Jos
+
+
+
+
+-- Publicaciones "Default"
 publicacion1_1 = (usuario1, "Este es mi primer post", [usuario2, usuario4])
 publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])
 publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5])
@@ -59,6 +115,19 @@ publicacion4_1 = (usuario4, "I am Alice. Not", [usuario1, usuario2])
 publicacion4_2 = (usuario4, "I am Bob", [])
 publicacion4_3 = (usuario4, "Just kidding, i am Mariela", [usuario1, usuario3])
 
+-- Publicaciones de Lucas
+publicacion6_1 = (usuario6, "Mr. Postman look and see",[usuario7,usuario8])
+publicacion6_2 = (usuario6, "Is there a letter in your bag for me?",[usuario7,usuario8])
+publicacion6_3 = (usuario6, "I've been waiting, I lost my mind", [usuario7,usuario8])
+
+-- Publicaciones de Ana
+
+-- Publicaciones de Berny
+
+-- Publicaciones de Jos
+
+
+-- Redes "Default"
 
 usuariosA = [usuario1, usuario2, usuario3, usuario4]
 relacionesA = [relacion1_2, relacion1_4, relacion2_3, relacion2_4, relacion3_4]
@@ -69,3 +138,27 @@ usuariosB = [usuario1, usuario2, usuario3, usuario5]
 relacionesB = [relacion1_2, relacion2_3]
 publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1, publicacion3_2, publicacion3_3]
 redB = (usuariosB, relacionesB, publicacionesB)
+--
+
+-- Redes de Lucas
+
+-- Motivacion Red C: El usuario con mas amigos es unico (usuario1): Usamos este dato para probar usuarioConMasAmigos, ademas
+--                   prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
+--                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8)
+usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
+relaciionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7]
+publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3]
+redC = (usuariosC, relacionesC, publicacionesC)
+
+
+
+-- Redes de Ana
+
+-- Redes de Berny
+
+-- Redes de Jos
+
+
+
+
+

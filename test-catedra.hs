@@ -16,7 +16,7 @@ run4 = runTestTT testEjercicio4
 run7 = runTestTT testEjercicio7
 run8 = runTestTT testEjercicio8
 run9 = runTestTT testEjercicio9
---run10 = runTestTT testEjercicio10
+run10 = runTestTT testEjercicio10
 
 {-
 
@@ -75,7 +75,10 @@ testEjercicio9 = test [
     " tieneMultiplesSeguidoresFieles" ~: (tieneUnSeguidorFiel redC usuario6) ~?= True
  ]
  
---testEjercicio10 = test []
+testEjercicio10 = test [
+    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+
+ ]
 
 
 expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)

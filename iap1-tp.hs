@@ -6,7 +6,7 @@
 -- Integrante 3: Peralta Diessler Bernardo, bernardodiessler@gmail.com, 1395/21
 -- Integrante 4: Galli Casado Sastre Lucas Federico, lucasgalli01@gmail.com, 739/21
 
-module Solucion where
+module Resoluciones where
 
 import Auxiliares 
 
@@ -85,7 +85,7 @@ contadorRel u (r:rs) c | pertenece u r = contadorRel u (r:rs) (c+1)
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
 
 -- Devuelve el usuario con mayor cantidad de amigos
--- Ojo! La recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
+-- Estoy al tanto de que la recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos ((u:[]),r,p) = u
 usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeAmigos ((u:us),r,p) (head us) = usuarioConMasAmigos ((u:tail us),r,p)

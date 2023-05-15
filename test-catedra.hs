@@ -1,10 +1,16 @@
+module Test where
+
+
 import Test.HUnit
--- Linea original: import solucion
-import Solucion
+import Resoluciones
 
 
 
 main = runTestTT tests
+lucas runTestTT testsLucas
+
+
+{-
 
 tests = test [
     " nombresDeUsuarios 1" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"],
@@ -27,18 +33,19 @@ tests = test [
 
     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
 
--- Testeos de Lucas
+   ]-}
+
+
+ 
+ test = testsLucas [
     -- Testeos Propios Ejercicio 4
+    " usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redC) ~=? [usuario1] 
     
 
     -- Testeos Propios Ejercicio 8 
-    " lesGustanLasMismasPublicaciones 3" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
-    " lesGustanLasMismasPublicaciones 4" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True,
-
-
-
-
-
+    " lesGustanLasMismasPublicaciones Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
+    " lesGustanLasMismasPublicaciones NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True
+ 
  ]
 
 expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)

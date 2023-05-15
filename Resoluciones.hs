@@ -57,13 +57,14 @@ estaRobertoCarlos = undefined
 
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
+
 -- Recibe una red social y un usuario. Devuelve una lista de todos las publiaciones del usuario en cuestion.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe rs u = todasLasPublicacionesDe (publicaciones rs) u 
 
 todasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
 todasLasPublicacionesDe [] u = []  
-todasLasPublicacionesDe (p:ps) u | usuarioDePublicacion p u == u = p : todasLasPublicacionesDe ps u 
+todasLasPublicacionesDe (p:ps) u | (usuarioDePublicacion p == u) = p : todasLasPublicacionesDe ps u 
                                  | otherwise = todasLasPublicacionesDe ps u 
 
 
@@ -85,10 +86,15 @@ lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGus
 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------
-
--- describir qué hace la función: .....
+-- Cumple test Catedra
+-- Recibe una red social y un Usuario U, devuelve True si existe al menos un usuario que le haya dado like a todas las publicaciones de U 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
-tieneUnSeguidorFiel = undefined
+tieneUnSeguidorFiel r u | length(interseccionLikes (publicacionesDe r u)) > 0 = True
+                        | otherwise = False
+
+interseccionLikes :: [Publicacion] -> [Usuario]
+interseccionLikes (p:[]) = likesDePublicacion p
+interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (likesDePublicacion (head ps))) (interseccionLikes ps)
 
 
 --- | Ejericio 10 |-----------------------------------------------------------------------------------------------------------------------------
@@ -96,4 +102,5 @@ tieneUnSeguidorFiel = undefined
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined
+
 

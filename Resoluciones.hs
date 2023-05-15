@@ -98,8 +98,18 @@ interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (li
 
 
 --- | Ejericio 10 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- Cumple test Catedra
+-- Recibe una red social y dos usuarios de la misma. Devuelve True si existe una cadena de amigos entre los 2
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
-existeSecuenciaDeAmigos = undefined
+existeSecuenciaDeAmigos r u1 u2 = recursion10 r (amigosDe r u1) u2  (length (usuarios r))
+
+recursion10 :: RedSocial -> [Usuario] -> Usuario -> Int -> Bool
+recursion10 r u u2 0 = False
+recursion10 r u u2 n | pertenece u2 (amigosDeLista r u) == True = True
+                     | otherwise = (recursion10 r (amigosDeLista r u) u2 (n-1))
+
+amigosDeLista :: RedSocial -> [Usuario] -> [Usuario]
+amigosDeLista r [] = []
+amigosDeLista r (u:us) = (amigosDe r u) ++ amigosDeLista r us
 
 

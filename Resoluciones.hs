@@ -70,7 +70,7 @@ pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs)
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- Recibe una red social y un usuario. Devuelve la cantidad de amigos que tiene el usuario
-cantidadDeAmigos r u = length(amigosDe r s)
+cantidadDeAmigos r u = length(amigosDe r u)
 
 
 

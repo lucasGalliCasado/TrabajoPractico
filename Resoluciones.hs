@@ -86,7 +86,7 @@ lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGus
 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test Catedra
+-- Cumple test Catedra y testeo propio
 -- Recibe una red social y un Usuario U, devuelve True si existe al menos un usuario que le haya dado like a todas las publicaciones de U 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u | length(interseccionLikes (publicacionesDe r u)) > 0 = True
@@ -98,7 +98,6 @@ interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (li
 
 
 --- | Ejericio 10 |-----------------------------------------------------------------------------------------------------------------------------
-
 -- describir qué hace la función: .....
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos = undefined

@@ -57,9 +57,14 @@ estaRobertoCarlos = undefined
 
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- Recibe una red social y un usuario. Devuelve una lista de todos las publiaciones del usuario en cuestion.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
-publicacionesDe = undefined
+publicacionesDe rs u = todasLasPublicacionesDe (publicaciones rs) u 
+
+todasLasPublicacionesDe :: [Publicacion] -> Usuario -> [Publicacion]
+todasLasPublicacionesDe [] u = []  
+todasLasPublicacionesDe (p:ps) u | usuarioDePublicacion p u == u = p : todasLasPublicacionesDe ps u 
+                                 | otherwise = todasLasPublicacionesDe ps u 
 
 
 

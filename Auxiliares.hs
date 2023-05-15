@@ -1,3 +1,4 @@
+
 module Auxiliares where
 
 
@@ -33,6 +34,7 @@ likesDePublicacion (_, _, us) = us
 
 ---- Funciones Auxiliares
 
+
 invertirLista :: (Eq t) => [t] -> [t]
 invertirLista (t:[]) = [t]
 invertirLista (t:ts) = (invertirLista ts) ++ [t] 
@@ -41,6 +43,7 @@ invertirLista (t:ts) = (invertirLista ts) ++ [t]
 pi1 (x,y) = x
 
 pi2 (x,y) = y
+
 
 -- Verifica si un "x" pertenece a una lista
 pertenece :: (Eq t) => t -> [t] -> Bool
@@ -72,6 +75,11 @@ sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
 redSocialValida :: RedSocial -> Bool
 redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
 -}
+
+
+redSocialValida :: RedSocial -> Bool
+redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
+
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
 usuariosValidos :: [Usuario] -> Bool
@@ -110,11 +118,23 @@ usuariosDeRelacionValidos u (r:rs) = (pertenece (pi1 r) u) && (pertenece (pi2 r)
 
 
 {-
+
+-- Dada una lista de Usuarios y otra de Relaciones, devuelve True si son validas
+relacionesValidas :: [Usuario] -> [Relacion] -> Bool
+relacionesValidas u r = (usuariosDeRelacionValidos u r) && (relacionesAsimetricas u r) && (noHayRelacionesRepetidas u r)
+
+--Recibe una lista de Relaciones y otra de Usuarios. Da True si todas las Relaciones esten definidas entre Usuarios de la lista 
+usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
+usuariosDeRelacionValidos [] = True
+usuariosDeRelacionValidos u (r:rs) = (pertenece r[0] u) && (pertenece r[1] u) && (usuariosDeRelacionValidos u rs)
+
 -- Recibe una lista de Relaciones y devuelve True si para toda relacion, su simetria no esta en la lista
 relacionesAsimetricas :: [Relacion] -> Bool
 relacionesAsimetricas (r:[]) = True
 relacionesAsimetricas (r:rs) = not( pertenece (invertirLista r) rs) && (relacionesAsimetricas rs) 
+
 -}
+
 
 
 -- Recibe una lista de Relaciones y retorna True si no hay relaciones repetidas, notese que cuenta una permutacion como una relacion distinta                             
@@ -146,6 +166,8 @@ iDyTexto ((us,tx,l):p) = (idDeUsuario us,tx) : iDyTexto p
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
 cadenaDeAmigos [us] r = True
 cadenaDeAmigos (u:us) r = relacionadosDirecto u (head us) r && cadenaDeAmigos us r
+cadenaDeAmigos [us] = True
+cadenaDeAmigos (u,us) = relacionadosDirecto u (head us) && cadenaDeAmigos us
 
 relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
 relacionadosDirecto u1 u2 (us,rel,pub) = (pertenece (u1,u2) rel) || (pertenece (u2,u1) rel)
@@ -154,6 +176,9 @@ relacionadosDirecto u1 u2 (us,rel,pub) = (pertenece (u1,u2) rel) || (pertenece (
 sonDeLaRed :: RedSocial -> [Usuario] -> Bool
 sonDeLaRed (u,x,y) [uss] = pertenece uss u
 sonDeLaRed (u,x,y) (us:uss) = pertenece us u && sonDeLaRed (u,x,y) uss
+sonDeLaRed (u,_,_) [uss] = pertenece uss u
+sonDeLaRed (u,_,_) (us:uss) = pertenece us u && sonDeLaRed
+
 
 
 -- Devuelve True en el caso de que el primero elemento de la lista sea x

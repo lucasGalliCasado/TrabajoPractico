@@ -48,7 +48,9 @@ nombresDeUsuarios = undefined
 
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- Aca use el que estaba en el codigo de jos, pero modifique las condiciones de pruebaRelacion pq por lo menos a mi me daba error
+
+
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]

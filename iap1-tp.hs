@@ -42,36 +42,22 @@ likesDePublicacion (_, _, us) = us
 import auxiliares.hs
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
+-- describir qué hace la función: .....
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = removeId (usuarios RedSocial) (length ((usuarios RedSocial) - 1) )
-
--- Para los ultimos n+1 elementos de la lista de Usuarios, extrae el segundo elemento de la terna y los vuelca a una lista del tipo String
-removeId :: [Usuario] -> Int -> [String]
-removeId us 0 = us[0][1]
-removeId us n = (us[n][1]):removeId us (n-1)
+nombresDeUsuarios = undefined
 
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
-
--- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
--- los cuales el Usuario ingresado tiene una relacion de amistad
+-- describir qué hace la función: .....
 amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe (us,rs,ps) U = pruebaRelacion rs us U 
-
--- Recibe lista de Relaciones, Lista de Usuarios y un Usuario fijo U. Devuelve una lista de los usuarios que tienen relacion con U
-pruebaRelacion :: [Relacion] -> [Usuario] -> Usuario -> [Usuario]
-pruebaRelacion rs [] U = []
-pruebaRelacion rs (us:uss) U | ((pertenece [us, U] rs) || (pertenece [us, U] rs) == True) =  us:pruebaRelacion rs uss U
-
--- Dada una lista de Relaciones y una Relacion fija R, prueba si R esta en la lista
-existeRelacion :: [Relacion] -> Relacion -> Bool
-existeRelacion rs r | pertenece r rs = True
-                    | otherwise = False
+amigosDe = undefined
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
 -- describir qué hace la función: .....
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos = undefined
+cantidadDeAmigos red u
+  | redSocialValida red && usuarioValido u && pertenece u (usuarios red) = longitud (amigosDe red u)
+  | otherwise = 0
 
 
 
@@ -98,7 +84,19 @@ publicacionesDe = undefined
 
 -- describir qué hace la función: .....
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA red u | not (redSocialValida red) || not (usuarioValido u) || not (pertenece u (usuarios red)) = []
+                                | otherwise = publicacionesQueLeGustanARec red u (publicaciones red) []
+
+publicacionesQueLeGustanARec :: RedSocial -> Usuario -> [Publicacion] -> [Publicacion] -> [Publicacion]
+publicacionesQueLeGustanARec _ _ [] res = sinRepetidos2 res
+publicacionesQueLeGustanARec red u (p:ps) res   | pertenece u (likesDePublicacion p) && pertenece p (publicaciones red) = publicacionesQueLeGustanARec red u ps (p:res)
+                                                | otherwise = publicacionesQueLeGustanARec red u ps res
+
+sinRepetidos2 :: Eq a => [a] -> [a]
+sinRepetidos2 [] = []
+sinRepetidos2 (x:xs)
+  | pertenece x xs = sinRepetidos2 xs
+  | otherwise   = x : sinRepetidos2 xs
 
 
 --- | Ejericio 8 |-----------------------------------------------------------------------------------------------------------------------------

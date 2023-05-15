@@ -10,56 +10,18 @@ module Resoluciones where
 
 import Auxiliares 
 
-type Usuario = (Integer, String) -- (id, nombre)
-type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
-type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
-type RedSocial = ([Usuario], [Relacion], [Publicacion])
-
--- Funciones basicas
-
-usuarios :: RedSocial -> [Usuario]
-usuarios (us, _, _) = us
-
-relaciones :: RedSocial -> [Relacion]
-relaciones (_, rs, _) = rs
-
-publicaciones :: RedSocial -> [Publicacion]
-publicaciones (_, _, ps) = ps
-
-idDeUsuario :: Usuario -> Integer
-idDeUsuario (id, _) = id 
-
-nombreDeUsuario :: Usuario -> String
-nombreDeUsuario (_, nombre) = nombre 
-
-usuarioDePublicacion :: Publicacion -> Usuario
-usuarioDePublicacion (u, _, _) = u
-
-likesDePublicacion :: Publicacion -> [Usuario]
-likesDePublicacion (_, _, us) = us
-
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
+-- Cumple test-catedra
 nombresDeUsuarios :: RedSocial -> [String]
-nombresDeUsuarios = proyectarNombres (usuarios RedSocial)
+nombresDeUsuarios r = proyectarNombres (usuarios r)
 
 proyectarNombres :: [Usuario] -> [String]
 proyectarNombres [] = []
-proyectarNombres (us:uss) = us[1]: proyectarNombres uss
+proyectarNombres (us:uss) = (pi2 us): proyectarNombres uss
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
-
-{-
-Aca lo hice sin funciones auxiliares, pero su compilacion es mas dudosa. Despues cuando testeamos habria que ver si anda.
-
-amigosDe :: RedSocial -> Usuario -> [Usuario]
-amigosDe ([],rs,ps) u = []
-amigosDe ((us:uss),rs,ps) u | (pertenece [us,u] rs || pertenece [u,us] rs) = us: amigosDe (uss,rs,ps) u
-                          | otherwise = amigosDe (uss,rs,ps) u
-
--}
-
-
+-- Cumple test-catedra
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
@@ -68,22 +30,19 @@ amigosDe (us,rs,ps) u = pruebaRelacion rs us u
 -- Recibe lista de Relaciones, Lista de Usuarios y un Usuario fijo U. Devuelve una lista de los usuarios que tienen relacion con U
 pruebaRelacion :: [Relacion] -> [Usuario] -> Usuario -> [Usuario]
 pruebaRelacion rs [] u = []
-pruebaRelacion rs (us:uss) u | ((pertenece [us, u] rs) || (pertenece [us, u] rs) == True) =  us:pruebaRelacion rs uss u
-
+pruebaRelacion rs (us:uss) u | ((pertenece (us,u) rs) == True) || ((pertenece (u,us) rs) == True) =  us:(pruebaRelacion rs uss u)
+                             | otherwise = pruebaRelacion rs uss u
 
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
+-- Cumple test-catedra
 -- Recibe un usuario y devuelve la cantidad de amigos que tiene
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
-cantidadDeAmigos (u,r,p) us = contadorRel us r 0
-
-contadorRel :: Usuario -> [Relaciones] -> Int -> Int
-contadorRel u (r:rs) c | pertenece u r = contadorRel u (r:rs) (c+1)
-                       | otherwise = contadorRel u (r:rs) c
+cantidadDeAmigos r u = length(amigosDe r u)
 
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
-
+-- Cumple test-catedra y testeo propio
 -- Devuelve el usuario con mayor cantidad de amigos
 -- Estoy al tanto de que la recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
 usuarioConMasAmigos :: RedSocial -> Usuario
@@ -106,17 +65,19 @@ publicacionesDe = undefined
 
 
 --- | Ejericio 7 |-----------------------------------------------------------------------------------------------------------------------------
-
--- describir qué hace la función: .....
+-- Cumple test-catedra 
+-- Recibe una Red y un Usuario, devuelve una lista de las publicaciones a las que le ha dado like el usuario en cuestion
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
-publicacionesQueLeGustanA = undefined
+publicacionesQueLeGustanA (us,r,[]) u = []
+publicacionesQueLeGustanA (us,r,(p:ps)) u | pertenece u (likesDePublicacion p) = p: publicacionesQueLeGustanA (us,r,ps) u 
+                                          | otherwise = publicacionesQueLeGustanA (us,r,ps) u
 
 
 --- | Ejericio 8 |-----------------------------------------------------------------------------------------------------------------------------
-
+-- Cumple test-catedra y testeo propio
 -- Dados dos usuarios nos da True si le han dado like a las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
-lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGustanA(r,u1)) (publicacionesQueLeGustanA(r,u2))
+lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGustanA r u1) (publicacionesQueLeGustanA r u2)
 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------

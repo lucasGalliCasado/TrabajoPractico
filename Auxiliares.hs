@@ -7,10 +7,40 @@ type Relacion = (Usuario, Usuario) -- usuarios que se relacionan
 type Publicacion = (Usuario, String, [Usuario]) -- (usuario que publica, texto publicacion, likes)
 type RedSocial = ([Usuario], [Relacion], [Publicacion])
 
+-- Funciones basicas
+
+usuarios :: RedSocial -> [Usuario]
+usuarios (us, _, _) = us
+
+relaciones :: RedSocial -> [Relacion]
+relaciones (_, rs, _) = rs
+
+publicaciones :: RedSocial -> [Publicacion]
+publicaciones (_, _, ps) = ps
+
+idDeUsuario :: Usuario -> Integer
+idDeUsuario (id, _) = id 
+
+nombreDeUsuario :: Usuario -> String
+nombreDeUsuario (_, nombre) = nombre 
+
+usuarioDePublicacion :: Publicacion -> Usuario
+usuarioDePublicacion (u, _, _) = u
+
+likesDePublicacion :: Publicacion -> [Usuario]
+likesDePublicacion (_, _, us) = us
+
+
+---- Funciones Auxiliares
+
 invertirLista :: (Eq t) => [t] -> [t]
 invertirLista (t:[]) = [t]
 invertirLista (t:ts) = (invertirLista ts) ++ [t] 
 
+
+pi1 (x,y) = x
+
+pi2 (x,y) = y
 
 -- Verifica si un "x" pertenece a una lista
 pertenece :: (Eq t) => t -> [t] -> Bool
@@ -38,10 +68,10 @@ sacarRepetidos _ [] = []
 sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
                         | otherwise = y : sacarRepetidos x ys
 
-
+{-
 redSocialValida :: RedSocial -> Bool
 redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
-
+-}
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
 usuariosValidos :: [Usuario] -> Bool
@@ -65,19 +95,27 @@ comparaID :: Integer -> [Usuario] -> Bool
 comparaID _ [] = False
 comparaID x ((y,_):ys) = x == y || comparaID x ys
 
+
+{-
 -- Dada una lista de Usuarios y otra de Relaciones, devuelve True si son validas
 relacionesValidas :: [Usuario] -> [Relacion] -> Bool
 relacionesValidas u r = (usuariosDeRelacionValidos u r) && (relacionesAsimetricas u r) && (noHayRelacionesRepetidas u r)
+-}
+
 
 --Recibe una lista de Relaciones y otra de Usuarios. Da True si todas las Relaciones esten definidas entre Usuarios de la lista 
 usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
-usuariosDeRelacionValidos [] = True
-usuariosDeRelacionValidos u (r:rs) = (pertenece r[0] u) && (pertenece r[1] u) && (usuariosDeRelacionValidos u rs)
+usuariosDeRelacionValidos u [] = True
+usuariosDeRelacionValidos u (r:rs) = (pertenece (pi1 r) u) && (pertenece (pi2 r) u) && (usuariosDeRelacionValidos u rs)
 
+
+{-
 -- Recibe una lista de Relaciones y devuelve True si para toda relacion, su simetria no esta en la lista
 relacionesAsimetricas :: [Relacion] -> Bool
 relacionesAsimetricas (r:[]) = True
 relacionesAsimetricas (r:rs) = not( pertenece (invertirLista r) rs) && (relacionesAsimetricas rs) 
+-}
+
 
 -- Recibe una lista de Relaciones y retorna True si no hay relaciones repetidas, notese que cuenta una permutacion como una relacion distinta                             
 noHayRelacionesRepetidas :: [Relacion] -> Bool
@@ -106,16 +144,16 @@ iDyTexto ((us,tx,l):p) = (idDeUsuario us,tx) : iDyTexto p
 
 
 cadenaDeAmigos :: [Usuario] -> RedSocial -> Bool
-cadenaDeAmigos [us] = True
-cadenaDeAmigos (u,us) = relacionadosDirecto u (head us) && cadenaDeAmigos us
+cadenaDeAmigos [us] r = True
+cadenaDeAmigos (u:us) r = relacionadosDirecto u (head us) r && cadenaDeAmigos us r
 
 relacionadosDirecto :: Usuario -> Usuario -> RedSocial -> Bool
 relacionadosDirecto u1 u2 (us,rel,pub) = (pertenece (u1,u2) rel) || (pertenece (u2,u1) rel)
 
 
 sonDeLaRed :: RedSocial -> [Usuario] -> Bool
-sonDeLaRed (u,_,_) [uss] = pertenece uss u
-sonDeLaRed (u,_,_) (us:uss) = pertenece us u && sonDeLaRed
+sonDeLaRed (u,x,y) [uss] = pertenece uss u
+sonDeLaRed (u,x,y) (us:uss) = pertenece us u && sonDeLaRed (u,x,y) uss
 
 
 -- Devuelve True en el caso de que el primero elemento de la lista sea x

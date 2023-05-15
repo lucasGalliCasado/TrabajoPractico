@@ -6,9 +6,17 @@ import Resoluciones
 
 
 
-main = runTestTT tests
-lucas runTestTT testsLucas
-
+--main = runTestTT tests
+--run1 = runTestTT testEjercicio1
+--run2 = runTestTT testEjercicio2
+--run3 = runTestTT testEjercicio3
+run4 = runTestTT testEjercicio4
+--run5 = runTestTT testEjercicio5
+--run6 = runTestTT testEjercicio6
+run7 = runTestTT testEjercicio7
+run8 = runTestTT testEjercicio8
+--run9 = runTestTT testEjercicio9
+--run10 = runTestTT testEjercicio10
 
 {-
 
@@ -36,19 +44,44 @@ tests = test [
    ]-}
 
 
- 
- test = testsLucas [
-    -- Testeos Propios Ejercicio 4
-    " usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redC) ~=? [usuario1] 
-    
+--testEjercicio1= test []
 
-    -- Testeos Propios Ejercicio 8 
-    " lesGustanLasMismasPublicaciones Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
-    " lesGustanLasMismasPublicaciones NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True
- 
+--testEjercicio2= test []
+
+--testEjercicio3 = test []
+
+testEjercicio4 = test [
+    "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4]
+    ]
+
+--testEjercicio5 = test []
+
+--testEjercicio6 = test []
+
+testEjercicio7 = test [
+    " publicacionesQueLeGustanA 1" ~: (publicacionesQueLeGustanA redA usuario1) ~?= [publicacion2_2, publicacion4_1]
+
  ]
 
+testEjercicio8 = test [
+    
+    " lesGustanLasMismasPublicaciones Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
+    " lesGustanLasMismasPublicaciones NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True
+ ]
+ 
+--testEjercicio9 = test []
+ 
+--testEjercicio10 = test []
+
+
 expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
+
+-- IMPORTANTE!!!! 
+
+-- NO AGREAGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
+-- NO MODIFIQUEN LAS REDES DEFAULT NI LAS QUE HAYAN HECHO OTRAS PERSONAS
+-- NO PASA NADA SI USAN UNA RED CREADA POR OTRA PERSONA EN SU TESTEO, PERO NO LA MODIFIQUEN!!!!!
+-- PARA CREAR REALCIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
 
 
 -- Usuarios 'Default'
@@ -64,12 +97,6 @@ usuario7 = (7, "Connie")
 usuario8 = (8, "Susy")
 usuario9 = (9, "Alfonso")
 
--- IMPORTANTE!!!! 
-
--- NO AGREAGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
--- NO MODIFIQUEN LAS REDES DEFAULT NI LAS QUE HAYAN HECHO OTRAS PERSONAS
--- NO PASA NADA SI USAN UNA RED CREADA POR OTRA PERSONA EN SU TESTEO, PERO NO LA MODIFIQUEN!!!!!
--- PARA CREAR REALCIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
 
 -- Usuarios creados por Ana para testear los ejercicios ...
 
@@ -153,7 +180,7 @@ redB = (usuariosB, relacionesB, publicacionesB)
 --                   prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
 --                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8)
 usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
-relaciionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7]
+relacionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7]
 publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3]
 redC = (usuariosC, relacionesC, publicacionesC)
 

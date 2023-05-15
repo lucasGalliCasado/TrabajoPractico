@@ -70,8 +70,9 @@ testEjercicio8 = test [
  ]
  
 testEjercicio9 = test [
-    " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True
-
+    " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True,
+    " tieneUnSeguidorFielFalse" ~: (tieneUnSeguidorFiel redC usuario1) ~?= False,
+    " tieneMultiplesSeguidoresFieles" ~: (tieneUnSeguidorFiel redC usuario6) ~?= True
  ]
  
 --testEjercicio10 = test []
@@ -156,6 +157,7 @@ publicacion4_3 = (usuario4, "Just kidding, i am Mariela", [usuario1, usuario3])
 publicacion6_1 = (usuario6, "Mr. Postman look and see",[usuario7,usuario8])
 publicacion6_2 = (usuario6, "Is there a letter in your bag for me?",[usuario7,usuario8])
 publicacion6_3 = (usuario6, "I've been waiting, I lost my mind", [usuario7,usuario8])
+publicacion6_4 = (usuario6, "Me olvide el resto de la letra",[])
 
 -- Publicaciones de Ana
 
@@ -181,10 +183,10 @@ redB = (usuariosB, relacionesB, publicacionesB)
 
 -- Motivacion Red C: El usuario con mas amigos es unico (usuario1): Usamos este dato para probar usuarioConMasAmigos, ademas
 --                   prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
---                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8)
+--                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8). 
 usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
 relacionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7]
-publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3]
+publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3,publicacion1_4]
 redC = (usuariosC, relacionesC, publicacionesC)
 
 

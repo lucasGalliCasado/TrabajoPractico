@@ -11,7 +11,7 @@ module Resoluciones where
 import Auxiliares 
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra
+-- Cumple test-catedra y testeo propio
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios r = proyectarNombres (usuarios r)
 

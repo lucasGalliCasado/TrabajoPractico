@@ -53,11 +53,15 @@ usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeA
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
 -- Recibe una red social y devuelve true si un usuario de la red social tiene más de un millón de amigos
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos ((),r,p) = False
-estaRobertoCarlos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u =< 1000000 = estaRobertoCarlos (us,r,p)
+estaRobertoCarlos ([],r,p) = False
+estaRobertoCarlos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 1000000 = estaRobertoCarlos (us,r,p)
                                | cantidadDeAmigos ((u:us),r,p) u > 1000000 = True
 
-
+-- Creamos una función auxiliar de estaRobertoCarlos para poder probar si está bien planteada 
+estaRobertoCarlosTest :: RedSocial -> Bool
+estaRobertoCarlosTest ([],r,p) = False
+estaRobertoCarlosTest ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 10 = estaRobertoCarlosTest (us,r,p)
+                                   | cantidadDeAmigos ((u:us),r,p) u > 10 = True
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
 

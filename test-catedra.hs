@@ -11,7 +11,7 @@ run1 = runTestTT testEjercicio1
 --run2 = runTestTT testEjercicio2
 run3 = runTestTT testEjercicio3
 run4 = runTestTT testEjercicio4
---run5 = runTestTT testEjercicio5
+run5 = runTestTT testEjercicio5
 --run6 = runTestTT testEjercicio6
 run7 = runTestTT testEjercicio7
 run8 = runTestTT testEjercicio8
@@ -66,7 +66,11 @@ testEjercicio4 = test [
 
  ]
 
---testEjercicio5 = test []
+testEjercicio5 = test [
+    " estaRobertoCarlos 1" ~: (estaRobertoCarlos redA) ~?= False,
+    " estaRobertoCarlosTest-True" ~: (estaRobertoCarlosTest redR) ~?= True
+
+]
 
 --testEjercicio6 = test []
 
@@ -137,6 +141,8 @@ usuario9 = (9, "Alfonso")
 -- Usuarios creados por Ana para testear los ejercicios 1 y 5
 usuario10 = (10, "Ana")
 usuario11 = (11, "Mia")
+usuario12 = (12, "Camilo")
+usuario13 = (13, "Gaara")
 
 -- Usuarios creados por Jos para testear los ejercicios ... 
 
@@ -157,7 +163,9 @@ relacion1_8 = (usuario1, usuario8)
 relacion1_9 = (usuario1, usuario9)
 
 -- Relaciones creadas por Ana 
-
+relacion1_10 = (usuario1, usuario10)
+relacion1_11 = (usuario1, usuario11)
+relacion1_12 = (usuario1, usuario12)
 
 -- Relaciones creadas por Berny 
 
@@ -224,6 +232,10 @@ redC = (usuariosC, relacionesC, publicacionesC)
 
 
 -- Redes de Ana
+-- Cree una red con 10 usuarios para poder probar estaRobertoCarlosTest
+usuariosR = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
+relacionesR = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9,relacion1_10,relacion1_11,relacion1_12]
+redR = (usuariosR, relacionesR, [])
 
 -- Redes de Berny
 
@@ -245,6 +257,8 @@ publicaciones3 = [((1, "Juan"), "Hello", [(2, "María")]), ((2, "María"), "Good
 
 
 -- Redes de Jos
+
+
 
 
 

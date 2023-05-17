@@ -9,7 +9,7 @@ import Resoluciones
 --main = runTestTT tests
 run1 = runTestTT testEjercicio1
 --run2 = runTestTT testEjercicio2
---run3 = runTestTT testEjercicio3
+run3 = runTestTT testEjercicio3
 run4 = runTestTT testEjercicio4
 --run5 = runTestTT testEjercicio5
 --run6 = runTestTT testEjercicio6
@@ -51,10 +51,21 @@ testEjercicio1= test [
 
 --testEjercicio2= test []
 
---testEjercicio3 = test []
+testEjercicio3 = test [
+    " cantidadDeAmigos 2" ~: (cantidadDeAmigos redF usuario1) ~?= 0, -- Caso en el que usuario1 no tiene amigos en la red social
+
+    " cantidadDeAmigos 3" ~: (cantidadDeAmigos redD usuario1) ~?= 1, -- Caso en el que usuario1 tiene un UNICO amigo
+
+    " cantidadDeAmigos 4" ~: (cantidadDeAmigos redE usuario1) ~?= 2, -- Caso en el que usuario1 tiene mas de un amigo
+
+    " cantidadDeAmigos 5" ~: (cantidadDeAmigos redD usuario3) ~?= 0  -- Caso en el que usuario3 no esta en la red social
+ ]
+
 
 testEjercicio4 = test [
     "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4]
+    "usuarioConMasAmigos 3" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
+
     ]
 
 --testEjercicio5 = test []
@@ -62,24 +73,45 @@ testEjercicio4 = test [
 --testEjercicio6 = test []
 
 testEjercicio7 = test [
-    " publicacionesQueLeGustanA 1" ~: (publicacionesQueLeGustanA redA usuario1) ~?= [publicacion2_2, publicacion4_1]
+    -- Caso donde al usuario no le gusta NINGUNA publicacion
+    " publicacionesQueLeGustanA 2" ~: (publicacionesQueLeGustanA red2 usuario1) ~?= [], n
+    -- Caso donde al usuario le gusta UNA publicacion
+    " publicacionesQueLeGustanA 3" ~: (publicacionesQueLeGustanA red3 usuario2) ~?= [((1, "Juan"), "Hello", [(2, "María")])], 
+    -- Caso donde al usuario le gustan VARIAS publicaciones
+    " publicacionesQueLeGustanA 4" ~: (publicacionesQueLeGustanA red3 usuario1) ~?= [((2, "María"), "Goodbye", [(1, "Juan"), (3, "Pedro")]), ((3, "Pedro"), "World", [(1, "Juan")])] 
 
- ]
+
+
+
+]
+   
 
 testEjercicio8 = test [
-    
-    " lesGustanLasMismasPublicaciones Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
-    " lesGustanLasMismasPublicaciones NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True
+    -- Caso en el que ninguno de los usuarios le han dado like a nada
+    " lesGustanLasMismasPublicaciones True-Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True, 
+    -- Caso en el que ambos han likeado las mismas publicaciones, habiendo likeado al menos una cada uno 
+    " lesGustanLasMismasPublicaciones True-NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True 
+    -- Caso en el no han likeado las mismas publicaciones, y uno de los usuarios no le ha dado like a nada
+    " lesGustanLasMismasPublicaciones False-Empty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario1) ~?= False
+    -- Caso en el que ambos usuarios han likeado al menos una publicacion, pero no las mismas.
+    " lesGustanLasMismasPublicaciones True-NotEmpty" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario4) ~?= False
  ]
  
 testEjercicio9 = test [
+    -- Caso en donde el usuario solo tiene un seguidor fiel
     " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True,
+    -- Caso en donde el usuario no tiene ningun seguidor fiel
     " tieneUnSeguidorFielFalse" ~: (tieneUnSeguidorFiel redC usuario1) ~?= False,
+    -- Caso en donde el usuario tiene multiples seguidores fieles
     " tieneMultiplesSeguidoresFieles" ~: (tieneUnSeguidorFiel redC usuario6) ~?= True
  ]
  
 testEjercicio10 = test [
     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+    -- Caso en donde NO existe un secuencia de amigos
+    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False
+    -- El caso de la catedra prueba una cadena 'larga' (osea los usuarios en cuestion no son amigos), este caso prueba el caso 'corto' los usuario son amigos
+    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario6) ~?= True
 
  ]
 
@@ -111,9 +143,6 @@ usuario9 = (9, "Alfonso")
 -- Usuarios creados por Ana para testear los ejercicios 1 y 5
 usuario10 = (10, "Ana")
 usuario11 = (11, "Mia")
-
-
--- Usuarios creados por Berny para testear los ejericios ...
 
 -- Usuarios creados por Jos para testear los ejercicios ... 
 
@@ -194,7 +223,7 @@ redB = (usuariosB, relacionesB, publicacionesB)
 --                   prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
 --                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8). 
 usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
-relacionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7]
+relacionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6]
 publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3,publicacion1_4]
 redC = (usuariosC, relacionesC, publicacionesC)
 
@@ -203,6 +232,23 @@ redC = (usuariosC, relacionesC, publicacionesC)
 -- Redes de Ana
 
 -- Redes de Berny
+
+
+redD = ([usuario1, usuario2], [(usuario1, usuario2)], [])
+redE = ([usuario1, usuario2, usuario3], [(usuario1, usuario2), (usuario1, usuario3)], [])
+redF = ([usuario1], [], []) -- antes era redC (lo tuve que cambiar porque sobrelapaban los nombres)
+redVacia = ([], [], [])
+
+red2 = (usuarios2, relaciones2, publicaciones2)
+usuarios2 = [(1, "Juan"), (2, "María")]
+relaciones2 = [((1, "Juan"), (2, "María"))]
+publicaciones2 = [((1, "Juan"), "Hello", [(2, "María")])]
+
+red3 = (usuarios3, relaciones3, publicaciones3)
+usuarios3 = [(1, "Juan"), (2, "María"), (3, "Pedro")]
+relaciones3 = [((1, "Juan"), (2, "María")), ((1, "Juan"), (3, "Pedro"))]
+publicaciones3 = [((1, "Juan"), "Hello", [(2, "María")]), ((2, "María"), "Goodbye", [(1, "Juan"), (3, "Pedro")]), ((3, "Pedro"), "World", [(1, "Juan")])]
+
 
 -- Redes de Jos
 

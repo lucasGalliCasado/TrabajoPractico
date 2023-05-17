@@ -51,9 +51,12 @@ usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeA
 
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
--- describir qué hace la función: .....
+-- Recibe una red social y devuelve true si un usuario de la red social tiene más de un millón de amigos
 estaRobertoCarlos :: RedSocial -> Bool
-estaRobertoCarlos = undefined
+estaRobertoCarlos ((),r,p) = False
+estaRobertoCarlos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u =< 1000000 = estaRobertoCarlos (us,r,p)
+                               | cantidadDeAmigos ((u:us),r,p) u > 1000000 = True
+
 
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
@@ -98,7 +101,7 @@ interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (li
 
 
 --- | Ejericio 10 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test Catedra
+-- Cumple test Catedra y testeo propio
 -- Recibe una red social y dos usuarios de la misma. Devuelve True si existe una cadena de amigos entre los 2
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u1 u2 = recursion10 r (amigosDe r u1) u2  (length (usuarios r))

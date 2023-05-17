@@ -6,7 +6,7 @@ import Resoluciones
 
 
 
---main = runTestTT tests
+main = runTestTT tests
 run1 = runTestTT testEjercicio1
 --run2 = runTestTT testEjercicio2
 run3 = runTestTT testEjercicio3
@@ -17,8 +17,6 @@ run7 = runTestTT testEjercicio7
 run8 = runTestTT testEjercicio8
 run9 = runTestTT testEjercicio9
 run10 = runTestTT testEjercicio10
-
-{-
 
 tests = test [
     " nombresDeUsuarios 1" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"],
@@ -41,7 +39,7 @@ tests = test [
 
     " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
 
-   ]-}
+   ]
 
 
 testEjercicio1= test [
@@ -63,7 +61,7 @@ testEjercicio3 = test [
 
 
 testEjercicio4 = test [
-    "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4]
+    "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4],
     "usuarioConMasAmigos 3" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
 
     ]
@@ -74,25 +72,21 @@ testEjercicio4 = test [
 
 testEjercicio7 = test [
     -- Caso donde al usuario no le gusta NINGUNA publicacion
-    " publicacionesQueLeGustanA 2" ~: (publicacionesQueLeGustanA red2 usuario1) ~?= [], n
+    " publicacionesQueLeGustanA 2" ~: (publicacionesQueLeGustanA red2 usuario1) ~?= [], 
     -- Caso donde al usuario le gusta UNA publicacion
     " publicacionesQueLeGustanA 3" ~: (publicacionesQueLeGustanA red3 usuario2) ~?= [((1, "Juan"), "Hello", [(2, "María")])], 
     -- Caso donde al usuario le gustan VARIAS publicaciones
     " publicacionesQueLeGustanA 4" ~: (publicacionesQueLeGustanA red3 usuario1) ~?= [((2, "María"), "Goodbye", [(1, "Juan"), (3, "Pedro")]), ((3, "Pedro"), "World", [(1, "Juan")])] 
-
-
-
-
-]
+ ]
    
 
 testEjercicio8 = test [
     -- Caso en el que ninguno de los usuarios le han dado like a nada
     " lesGustanLasMismasPublicaciones True-Empty" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True, 
     -- Caso en el que ambos han likeado las mismas publicaciones, habiendo likeado al menos una cada uno 
-    " lesGustanLasMismasPublicaciones True-NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True 
+    " lesGustanLasMismasPublicaciones True-NotEmpty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario8) ~?= True,
     -- Caso en el no han likeado las mismas publicaciones, y uno de los usuarios no le ha dado like a nada
-    " lesGustanLasMismasPublicaciones False-Empty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario1) ~?= False
+    " lesGustanLasMismasPublicaciones False-Empty" ~: (lesGustanLasMismasPublicaciones redC usuario7 usuario1) ~?= False,
     -- Caso en el que ambos usuarios han likeado al menos una publicacion, pero no las mismas.
     " lesGustanLasMismasPublicaciones True-NotEmpty" ~: (lesGustanLasMismasPublicaciones redA usuario2 usuario4) ~?= False
  ]
@@ -107,9 +101,9 @@ testEjercicio9 = test [
  ]
  
 testEjercicio10 = test [
-    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True
+    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
     -- Caso en donde NO existe un secuencia de amigos
-    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False
+    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False,
     -- El caso de la catedra prueba una cadena 'larga' (osea los usuarios en cuestion no son amigos), este caso prueba el caso 'corto' los usuario son amigos
     "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario6) ~?= True
 

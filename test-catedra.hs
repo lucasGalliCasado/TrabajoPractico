@@ -64,7 +64,7 @@ testEjercicio4 = test [
     "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4],
     "usuarioConMasAmigos 3" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
 
-    ]
+ ]
 
 --testEjercicio5 = test []
 

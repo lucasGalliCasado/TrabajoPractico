@@ -73,7 +73,7 @@ todasLasPublicacionesDe (p:ps) u | (usuarioDePublicacion p == u) = p : todasLasP
 
 
 --- | Ejericio 7 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra 
+-- Cumple test-catedra y testeo propio
 -- Recibe una Red y un Usuario, devuelve una lista de las publicaciones a las que le ha dado like el usuario en cuestion
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA (us,r,[]) u = []

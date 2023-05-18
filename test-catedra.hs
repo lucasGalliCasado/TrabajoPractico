@@ -8,11 +8,11 @@ import Resoluciones
 
 main = runTestTT tests
 run1 = runTestTT testEjercicio1
---run2 = runTestTT testEjercicio2
+run2 = runTestTT testEjercicio2
 run3 = runTestTT testEjercicio3
 run4 = runTestTT testEjercicio4
 run5 = runTestTT testEjercicio5
---run6 = runTestTT testEjercicio6
+run6 = runTestTT testEjercicio6
 run7 = runTestTT testEjercicio7
 run8 = runTestTT testEjercicio8
 run9 = runTestTT testEjercicio9
@@ -44,10 +44,15 @@ tests = test [
 
 testEjercicio1= test [
     " nombresDeUsuarios 1" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"],
-    " nombresDeUsuarios 2" ~: (nombresDeUsuarios redC) ~?= ["Juan","Natalia","Pedro","Mariela","Natalia","Lucas","Connie"]
+    " nombresDeUsuarios 2" ~: (nombresDeUsuarios redAn) ~?= ["Ana","Mia","Camilo","Gaara"]
  ]
 
---testEjercicio2= test []
+testEjercicio2= test [
+    " amigosDe 1" ~: (amigosDe redA usuario1) ~?= [usuario2, usuario4],    
+    " amigosDe 14" ~: (amigosDe redFriend usuario14) ~?= [usuario10, usuario13, usuario15, usuario16],
+    --Caso donde mi usuario no se relaciona con ningún otro usuario
+    " amigosDe 17" ~: (amigosDe redFriend usuario17) ~?= []
+ ]
 
 testEjercicio3 = test [
     " cantidadDeAmigos 2" ~: (cantidadDeAmigos redF usuario1) ~?= 0, -- Caso en el que usuario1 no tiene amigos en la red social
@@ -68,11 +73,19 @@ testEjercicio4 = test [
 
 testEjercicio5 = test [
     " estaRobertoCarlos 1" ~: (estaRobertoCarlos redA) ~?= False,
+   -- Usamos la función estaRobertoCarlosTest para poder probar la lógica del ejercicio
     " estaRobertoCarlosTest-True" ~: (estaRobertoCarlosTest redR) ~?= True
 
-]
+ ]
 
---testEjercicio6 = test []
+testEjercicio6 = test [
+    " publicacionesDe 1" ~: (publicacionesDe redA usuario2) ~?= [publicacion2_1, publicacion2_2],
+    --Caso donde el usuario hizo algunas publicaciones
+    " publicacionesDe 14" ~: (publicacionesDe redFriend1 usuario14) ~?= [publicacion14_1, publicacion14_2, publicacion14_3],
+    --Caso donde el usuario no hace ninguna publicación
+    " publicacionesDe 17" ~: (publicacionesDe redFriend1 usuario17) ~?= []
+
+ ]
 
 testEjercicio7 = test [
     -- Caso donde al usuario no le gusta NINGUNA publicacion
@@ -118,10 +131,10 @@ expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show
 
 -- IMPORTANTE!!!! 
 
--- NO AGREAGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
+-- NO AGREGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
 -- NO MODIFIQUEN LAS REDES DEFAULT NI LAS QUE HAYAN HECHO OTRAS PERSONAS
 -- NO PASA NADA SI USAN UNA RED CREADA POR OTRA PERSONA EN SU TESTEO, PERO NO LA MODIFIQUEN!!!!!
--- PARA CREAR REALCIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
+-- PARA CREAR RElACIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
 
 
 -- Usuarios 'Default'
@@ -145,7 +158,10 @@ usuario12 = (12, "Camilo")
 usuario13 = (13, "Gaara")
 
 -- Usuarios creados por Jos para testear los ejercicios ... 
-
+usuario14 = (14, "Jos")
+usuario15 = (15, "Tavo")
+usuario16 = (16, "Iván")
+usuario17 = (17, "Yami")
 
 -- Relaciones "Default"
 relacion1_2 = (usuario1, usuario2)
@@ -171,8 +187,10 @@ relacion1_12 = (usuario1, usuario12)
 
 
 -- Relaciones creadas por Jos
-
-
+relacion14_13 = (usuario14, usuario13)
+relacion14_15 = (usuario14, usuario15)
+relacion14_16 = (usuario14, usuario16)
+relacion10_14 = (usuario14, usuario10)
 
 
 -- Publicaciones "Default"
@@ -204,6 +222,9 @@ publicacion6_4 = (usuario6, "Me olvide el resto de la letra",[])
 -- Publicaciones de Berny
 
 -- Publicaciones de Jos
+publicacion14_1 = (usuario14, "Justo que pensaba en vos nena, caí muerto",[usuario10, usuario13, usuario15])
+publicacion14_2 = (usuario14, "Yo te amo tanto que no puedo despertarme sin amar",[usuario13, usuario16])
+publicacion14_3 = (usuario14, "Te amo ya y ya es mañana", [usuario13, usuario15])
 
 
 -- Redes "Default"
@@ -236,6 +257,9 @@ redC = (usuariosC, relacionesC, publicacionesC)
 usuariosR = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
 relacionesR = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9,relacion1_10,relacion1_11,relacion1_12]
 redR = (usuariosR, relacionesR, [])
+---Cree una red para poder ver si devuelve los nombres de los usuarios
+usuariosAn = [usuario10, usuario11, usuario12, usuario13]
+redAn = (usuariosAn,[] ,[])
 
 -- Redes de Berny
 
@@ -257,8 +281,11 @@ publicaciones3 = [((1, "Juan"), "Hello", [(2, "María")]), ((2, "María"), "Good
 
 
 -- Redes de Jos
-
-
+-- Cree una red que contenga un usuario que se relacione con la mayoría de mis usuarios creados y, a su vez, que contenga un usuario que no se relacione con nadie para ver cómo funciona 
+usuariosFriend = [usuario10, usuario13, usuario14, usuario15, usuario16, usuario17]
+relacionesFriend = [relacion10_14, relacion14_13, relacion14_15, relacion14_16]
+redFriend = (usuariosFriend, relacionesFriend, [])
+redFriend1 = (usuariosFriend, relacionesFriend, [publicacion14_1,publicacion14_2,publicacion14_3])
 
 
 

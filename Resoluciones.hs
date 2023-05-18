@@ -21,7 +21,7 @@ proyectarNombres (us:uss) = (pi2 us): proyectarNombres uss
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
 -- Cumple test-catedra
--- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista contendiendo a todos los usuarios de la red con
+-- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista conteniendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
 amigosDe (us,rs,ps) u = pruebaRelacion rs us u 

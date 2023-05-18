@@ -20,7 +20,7 @@ proyectarNombres [] = []
 proyectarNombres (us:uss) = (pi2 us): proyectarNombres uss
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra
+-- Cumple test-catedra y testeo propio
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista conteniendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
@@ -51,6 +51,7 @@ usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeA
 
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
+-- Cumple test-cátedra y testeo propio
 -- Recibe una red social y devuelve true si un usuario de la red social tiene más de un millón de amigos
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos ([],r,p) = False
@@ -64,8 +65,8 @@ estaRobertoCarlosTest ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 10 = est
                                    | cantidadDeAmigos ((u:us),r,p) u > 10 = True
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
-
--- Recibe una red social y un usuario. Devuelve una lista de todos las publiaciones del usuario en cuestion.
+-- Cumple test cátedra y testeo propio
+-- Recibe una red social y un usuario. Devuelve una lista de todas las publicaciones del usuario en cuestión.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe rs u = todasLasPublicacionesDe (publicaciones rs) u 
 

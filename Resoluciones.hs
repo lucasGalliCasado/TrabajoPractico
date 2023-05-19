@@ -39,9 +39,7 @@ cantidadDeAmigos r u = length(amigosDe r u)
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
 -- Devuelve el usuario con mayor cantidad de amigos
--- Estoy al tanto de que la recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
-
-
+-- (La recursion no cumple con el requiere, pero lo consulte y me dijeron que no habia problema) 
 usuarioConMasAmigos :: RedSocial -> Usuario
 usuarioConMasAmigos ((u:us),r,p) | us == [] = u
                                  | cantidadDeAmigos ((u:us),r,p) u >= cantidadDeAmigos ((u:us),r,p) (head us) = usuarioConMasAmigos (u:tail us,r,p) 

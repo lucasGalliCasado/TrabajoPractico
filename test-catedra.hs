@@ -48,52 +48,61 @@ testEjercicio1= test [
  ]
 
 testEjercicio2= test [
-    " amigosDe 1" ~: (amigosDe redA usuario1) ~?= [usuario2, usuario4],    
-    " amigosDe 14" ~: (amigosDe redFriend usuario14) ~?= [usuario10, usuario13, usuario15, usuario16],
-    --Caso donde mi usuario no se relaciona con ningún otro usuario
-    " amigosDe 17" ~: (amigosDe redFriend usuario17) ~?= []
+    -- Casos donde el usuario tiene al menos un amigo
+    " amigosDe Varios-1" ~: (amigosDe redA usuario1) ~?= [usuario2, usuario4],    
+    " amigosDe Varios-2" ~: (amigosDe redFriend usuario14) ~?= [usuario10, usuario13, usuario15, usuario16],
+    --Caso donde el usuario no tienen ningun amigo
+    " amigosDe Empty" ~: (amigosDe redFriend usuario17) ~?= []
  ]
 
 testEjercicio3 = test [
-    " cantidadDeAmigos 2" ~: (cantidadDeAmigos redF usuario1) ~?= 0, -- Caso en el que usuario1 no tiene amigos en la red social
-
-    " cantidadDeAmigos 3" ~: (cantidadDeAmigos redD usuario1) ~?= 1, -- Caso en el que usuario1 tiene un UNICO amigo
-
-    " cantidadDeAmigos 4" ~: (cantidadDeAmigos redE usuario1) ~?= 2, -- Caso en el que usuario1 tiene mas de un amigo
-
-    " cantidadDeAmigos 5" ~: (cantidadDeAmigos redD usuario3) ~?= 0  -- Caso en el que usuario3 no esta en la red social
+    -- Caso en el que usuario1 no tiene amigos en la red social
+    " cantidadDeAmigos Empty" ~: (cantidadDeAmigos redF usuario1) ~?= 0,
+    -- Caso en el que usuario1 tiene un UNICO amigo
+    " cantidadDeAmigos Unico" ~: (cantidadDeAmigos redD usuario1) ~?= 1,
+    -- Caso en el que usuario1 tiene mas de un amigo
+    " cantidadDeAmigos Varios" ~: (cantidadDeAmigos redE usuario1) ~?= 2, 
+    -- Caso en el que usuario3 no esta en la red social
+    " cantidadDeAmigos 5" ~: (cantidadDeAmigos redD usuario3) ~?= 0
  ]
+
+-- Error en caso Unico!!!!!!!
 
 
 testEjercicio4 = test [
-    "usuarioConMasAmigos 2" ~: expectAny (usuarioConMasAmigos redA) [usuario1, usuario4],
-    "usuarioConMasAmigos 3" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
+    -- En el test de la catedra hay varios usuarios que comparten la propiedad de maxima cantidad de amigos
+    -- Existe un uncio usuario con la maxima cantidad de amigos
+    " usuarioConMasAmigos 1" ~: expectAny (usuarioConMasAmigos redA) [usuario2, usuario4],
+    "usuarioConMasAmigos-Unico" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
 
  ]
 
 testEjercicio5 = test [
-    " estaRobertoCarlos 1" ~: (estaRobertoCarlos redA) ~?= False,
-   -- Usamos la función estaRobertoCarlosTest para poder probar la lógica del ejercicio
+    -- Testeo de la Catedra
+    " estaRobertoCarlos-False" ~: (estaRobertoCarlos redA) ~?= False,
+   -- Usamos la función estaRobertoCarlosTest para probar el caso True
     " estaRobertoCarlosTest-True" ~: (estaRobertoCarlosTest redR) ~?= True
 
  ]
 
 testEjercicio6 = test [
+    -- Testeo de la Catedra
     " publicacionesDe 1" ~: (publicacionesDe redA usuario2) ~?= [publicacion2_1, publicacion2_2],
     --Caso donde el usuario hizo algunas publicaciones
-    " publicacionesDe 14" ~: (publicacionesDe redFriend1 usuario14) ~?= [publicacion14_1, publicacion14_2, publicacion14_3],
+    " publicacionesDe-Varias" ~: (publicacionesDe redFriend1 usuario14) ~?= [publicacion14_1, publicacion14_2, publicacion14_3],
     --Caso donde el usuario no hace ninguna publicación
-    " publicacionesDe 17" ~: (publicacionesDe redFriend1 usuario17) ~?= []
+    " publicacionesDe-Empty" ~: (publicacionesDe redFriend1 usuario17) ~?= []
 
  ]
 
+
 testEjercicio7 = test [
-    -- Caso donde al usuario no le gusta NINGUNA publicacion
+   --Caso donde al usuario no le gusta NINGUNA publicacion
     " publicacionesQueLeGustanA 2" ~: (publicacionesQueLeGustanA red2 usuario1) ~?= [], 
-    -- Caso donde al usuario le gusta UNA publicacion
-    " publicacionesQueLeGustanA 3" ~: (publicacionesQueLeGustanA red3 usuario2) ~?= [((1, "Juan"), "Hello", [(2, "María")])], 
-    -- Caso donde al usuario le gustan VARIAS publicaciones
-    " publicacionesQueLeGustanA 4" ~: (publicacionesQueLeGustanA red3 usuario1) ~?= [((2, "María"), "Goodbye", [(1, "Juan"), (3, "Pedro")]), ((3, "Pedro"), "World", [(1, "Juan")])] 
+    --Caso donde al usuario le gusta UNA publicacion    
+    " publicacionesQueLeGustanA 3" ~: (publicacionesQueLeGustanA red2 usuario19) ~?= [publicacion7_1], 
+    -- Caso donde al usuario le gustan VARIAS publicaciones    
+    " publicacionesQueLeGustanA 4" ~: (publicacionesQueLeGustanA red3 usuario18) ~?= [publicacion7_2, publicacion7_3]
  ]
    
 
@@ -109,7 +118,7 @@ testEjercicio8 = test [
  ]
  
 testEjercicio9 = test [
-    -- Caso en donde el usuario solo tiene un seguidor fiel
+    -- Caso en donde el usuario solo tiene un seguidor fiel (Testeo de la Catedra)
     " tieneUnSeguidorFiel 1" ~: (tieneUnSeguidorFiel redA usuario1) ~?= True,
     -- Caso en donde el usuario no tiene ningun seguidor fiel
     " tieneUnSeguidorFielFalse" ~: (tieneUnSeguidorFiel redC usuario1) ~?= False,
@@ -118,23 +127,17 @@ testEjercicio9 = test [
  ]
  
 testEjercicio10 = test [
-    " existeSecuenciaDeAmigos 1" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
+    -- Testeo de la Catedra
+    " existeSecuenciaDeAmigos-Long" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
     -- Caso en donde NO existe un secuencia de amigos
-    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False,
+    "existeSecuenciaDeAmigos-False" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False,
     -- El caso de la catedra prueba una cadena 'larga' (osea los usuarios en cuestion no son amigos), este caso prueba el caso 'corto' los usuario son amigos
-    "existeSecuenciaDeAmigos 2" ~: (existeSecuenciaDeAmigos redC usuario1 usuario6) ~?= True
+    "existeSecuenciaDeAmigos-Short" ~: (existeSecuenciaDeAmigos redC usuario1 usuario6) ~?= True
 
  ]
 
 
 expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
-
--- IMPORTANTE!!!! 
-
--- NO AGREGUEN ''LIKES'' EN PUBLIACIONES QUE NO SEAN CREADAS POR USTEDES
--- NO MODIFIQUEN LAS REDES DEFAULT NI LAS QUE HAYAN HECHO OTRAS PERSONAS
--- NO PASA NADA SI USAN UNA RED CREADA POR OTRA PERSONA EN SU TESTEO, PERO NO LA MODIFIQUEN!!!!!
--- PARA CREAR RElACIONES NUEVAS, USEN SOLAMENTE LOS USUARIOS DEFAULT Y LOS SUYOS, DE LO CONTRARIO SE PUEDEN SOLAPAR
 
 
 -- Usuarios 'Default'
@@ -144,25 +147,25 @@ usuario3 = (3, "Pedro")
 usuario4 = (4, "Mariela")
 usuario5 = (5, "Natalia")
 
--- Usuarios creados por Lucas para testear los ejercicios 4 y 8
+-- Usuarios Agredados
 usuario6 = (6, "Lucas")
 usuario7 = (7, "Connie")
 usuario8 = (8, "Susy")
 usuario9 = (9, "Alfonso")
 
-
--- Usuarios creados por Ana para testear los ejercicios 1 y 5
 usuario10 = (10, "Ana")
 usuario11 = (11, "Mia")
 usuario12 = (12, "Camilo")
 usuario13 = (13, "Gaara")
 
--- Usuarios creados por Jos para testear los ejercicios ... 
 usuario14 = (14, "Jos")
 usuario15 = (15, "Tavo")
 usuario16 = (16, "Iván")
 usuario17 = (17, "Yami")
 
+usuario18 =(18, "Juan")
+usuario19 = (19, "María")
+usuario20 = (20, "Pedro")
 -- Relaciones "Default"
 relacion1_2 = (usuario1, usuario2)
 relacion1_3 = (usuario1, usuario3)
@@ -171,26 +174,21 @@ relacion2_3 = (usuario3, usuario2)
 relacion2_4 = (usuario2, usuario4)
 relacion3_4 = (usuario4, usuario3)
 
--- Relaciones creadas por Lucas
+-- Relaciones agregadas
 relacion1_5 = (usuario1, usuario5)
 relacion1_6 = (usuario1, usuario6)
 relacion1_7 = (usuario1, usuario7)
 relacion1_8 = (usuario1, usuario8)
-relacion1_9 = (usuario1, usuario9)
-
--- Relaciones creadas por Ana 
+relacion1_9 = (usuario1, usuario9) 
 relacion1_10 = (usuario1, usuario10)
 relacion1_11 = (usuario1, usuario11)
 relacion1_12 = (usuario1, usuario12)
-
--- Relaciones creadas por Berny 
-
-
--- Relaciones creadas por Jos
 relacion14_13 = (usuario14, usuario13)
 relacion14_15 = (usuario14, usuario15)
 relacion14_16 = (usuario14, usuario16)
 relacion10_14 = (usuario14, usuario10)
+relacion18_19 = (usuario18, usuario19)
+relacion18_20 = (usuario18, usuario20) 
 
 
 -- Publicaciones "Default"
@@ -211,24 +209,21 @@ publicacion4_1 = (usuario4, "I am Alice. Not", [usuario1, usuario2])
 publicacion4_2 = (usuario4, "I am Bob", [])
 publicacion4_3 = (usuario4, "Just kidding, i am Mariela", [usuario1, usuario3])
 
--- Publicaciones de Lucas
+-- Publicaciones Agregadas
 publicacion6_1 = (usuario6, "Mr. Postman look and see",[usuario7,usuario8])
 publicacion6_2 = (usuario6, "Is there a letter in your bag for me?",[usuario7,usuario8])
 publicacion6_3 = (usuario6, "I've been waiting, I lost my mind", [usuario7,usuario8])
 publicacion6_4 = (usuario6, "Me olvide el resto de la letra",[])
 
--- Publicaciones de Ana
-
--- Publicaciones de Berny
-
--- Publicaciones de Jos
 publicacion14_1 = (usuario14, "Justo que pensaba en vos nena, caí muerto",[usuario10, usuario13, usuario15])
 publicacion14_2 = (usuario14, "Yo te amo tanto que no puedo despertarme sin amar",[usuario13, usuario16])
 publicacion14_3 = (usuario14, "Te amo ya y ya es mañana", [usuario13, usuario15])
 
+publicacion7_1 = (usuario18, "Hello", [usuario19])
+publicacion7_2 = (usuario19, "Goodbye", [usuario18, usuario19])
+publicacion7_3 = (usuario20, "World", [usuario18])
 
 -- Redes "Default"
-
 usuariosA = [usuario1, usuario2, usuario3, usuario4]
 relacionesA = [relacion1_2, relacion1_4, relacion2_3, relacion2_4, relacion3_4]
 publicacionesA = [publicacion1_1, publicacion1_2, publicacion2_1, publicacion2_2, publicacion3_1, publicacion3_2, publicacion4_1, publicacion4_2]
@@ -240,48 +235,44 @@ publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1
 redB = (usuariosB, relacionesB, publicacionesB)
 --
 
--- Redes de Lucas
+-- Redes Agregadas
 
--- Motivacion Red C: El usuario con mas amigos es unico (usuario1): Usamos este dato para probar usuarioConMasAmigos, ademas
---                   prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
---                   y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8). 
+-- Info Red C: El usuario con mas amigos es unico (usuario1): Usamos este dato para probar usuarioConMasAmigos, ademas
+--             prueba si funciona lesGustanLasmismasPubliaciones en dos casos, uno con dos usuarios que no le han dado like a ninguna publicacion(usuarios 1 y 2),
+--             y otro en donde los usuarios le han dado like a al menos una publicacion (usuarios 7  y 8). 
 usuariosC = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7]
 relacionesC = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6]
 publicacionesC = [publicacion6_1,publicacion6_2,publicacion6_3,publicacion1_4]
 redC = (usuariosC, relacionesC, publicacionesC)
 
-
-
--- Redes de Ana
--- Cree una red con 10 usuarios para poder probar estaRobertoCarlosTest
+-- Creamos una red con 10 usuarios para poder probar estaRobertoCarlosTest
 usuariosR = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
 relacionesR = [relacion1_2,relacion1_3,relacion1_4,relacion1_5,relacion1_6,relacion1_7,relacion1_8,relacion1_9,relacion1_10,relacion1_11,relacion1_12]
 redR = (usuariosR, relacionesR, [])
----Cree una red para poder ver si devuelve los nombres de los usuarios
+---Creamos una red para poder ver si devuelve los nombres de los usuarios
 usuariosAn = [usuario10, usuario11, usuario12, usuario13]
 redAn = (usuariosAn,[] ,[])
 
--- Redes de Berny
 
+usuariosD = [usuario1, usuario2]
+relacionesD = [(usuario1, usuario2)]
+redD = (usuariosD, relacionesD, [])
 
-redD = ([usuario1, usuario2], [(usuario1, usuario2)], [])
-redE = ([usuario1, usuario2, usuario3], [(usuario1, usuario2), (usuario1, usuario3)], [])
-redF = ([usuario1], [], []) -- antes era redC (lo tuve que cambiar porque sobrelapaban los nombres)
-redVacia = ([], [], [])
+usuariosE = [usuario1, usuario2, usuario3]
+relacionesE = [(usuario1, usuario2), (usuario1, usuario3)]
+redE = (usuariosE, relacionesE,[])
 
-red2 = (usuarios2, relaciones2, publicaciones2)
-usuarios2 = [(1, "Juan"), (2, "María")]
-relaciones2 = [((1, "Juan"), (2, "María"))]
-publicaciones2 = [((1, "Juan"), "Hello", [(2, "María")])]
+redF = ([usuario1], [], [])
 
+usuarios2 = [usuario18, usuario19]
+red2 = (usuarios2, [relacion18_19], [publicacion7_1])
+usuarios3 = [usuario18, usuario19, usuario20]
+relaciones3 = [relacion18_19, relacion18_20]
+publicaciones3 = [publicacion7_1, publicacion7_2, publicacion7_3]
 red3 = (usuarios3, relaciones3, publicaciones3)
-usuarios3 = [(1, "Juan"), (2, "María"), (3, "Pedro")]
-relaciones3 = [((1, "Juan"), (2, "María")), ((1, "Juan"), (3, "Pedro"))]
-publicaciones3 = [((1, "Juan"), "Hello", [(2, "María")]), ((2, "María"), "Goodbye", [(1, "Juan"), (3, "Pedro")]), ((3, "Pedro"), "World", [(1, "Juan")])]
 
-
--- Redes de Jos
--- Cree una red que contenga un usuario que se relacione con la mayoría de mis usuarios creados y, a su vez, que contenga un usuario que no se relacione con nadie para ver cómo funciona 
+-- Creamos una red que contenga un usuario que se relacione con la mayoría de mis usuarios creados y, a su vez, que contenga
+-- un usuario que no se relacione con nadie para ver cómo funciona 
 usuariosFriend = [usuario10, usuario13, usuario14, usuario15, usuario16, usuario17]
 relacionesFriend = [relacion10_14, relacion14_13, relacion14_15, relacion14_16]
 redFriend = (usuariosFriend, relacionesFriend, [])

@@ -44,9 +44,11 @@ cantidadDeAmigos r u = length(amigosDe r u)
 -- Cumple test-catedra y testeo propio
 -- Devuelve el usuario con mayor cantidad de amigos
 -- Estoy al tanto de que la recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
+
+
 usuarioConMasAmigos :: RedSocial -> Usuario
-usuarioConMasAmigos ((u:[]),r,p) = u
-usuarioConMasAmigos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u > cantidadDeAmigos ((u:us),r,p) (head us) = usuarioConMasAmigos ((u:tail us),r,p)
+usuarioConMasAmigos ((u:us),r,p) | us == [] = u
+                                 | cantidadDeAmigos ((u:us),r,p) u >= cantidadDeAmigos ((u:us),r,p) (head us) = usuarioConMasAmigos (u:tail us,r,p) 
                                  | otherwise = usuarioConMasAmigos (us,r,p)
 
 
@@ -82,7 +84,7 @@ todasLasPublicacionesDe (p:ps) u | (usuarioDePublicacion p == u) = p : todasLasP
 -- Recibe una Red y un Usuario, devuelve una lista de las publicaciones a las que le ha dado like el usuario en cuestion
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA (us,r,[]) u = []
-publicacionesQueLeGustanA (us,r,(p:ps)) u | pertenece u (likesDePublicacion p) = p: publicacionesQueLeGustanA (us,r,ps) u 
+publicacionesQueLeGustanA (us,r,(p:ps)) u | pertenece u (likesDePublicacion p) == True = p: publicacionesQueLeGustanA (us,r,ps) u 
                                           | otherwise = publicacionesQueLeGustanA (us,r,ps) u
 
 

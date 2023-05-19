@@ -76,10 +76,6 @@ sacarRepetidos _ [] = []
 sacarRepetidos x (y:ys) | x == y = sacarRepetidos x ys
                         | otherwise = y : sacarRepetidos x ys
 
-{-
-redSocialValida :: RedSocial -> Bool
-redSocialValida (u,r,p) = usuariosValidos u && relacionesValidas u r && publicacionesValidas u p 
--}
 
 -- Verifica si dada la lista de usuarios todos tienen un nombre de usuario no vacio y distintos ID -- ¿NO HAY PROBLEMA CON MISMOS USUARIOS?
 usuariosValidos :: [Usuario] -> Bool
@@ -104,25 +100,10 @@ comparaID _ [] = False
 comparaID x ((y,_):ys) = x == y || comparaID x ys
 
 
-{-
--- Dada una lista de Usuarios y otra de Relaciones, devuelve True si son validas
-relacionesValidas :: [Usuario] -> [Relacion] -> Bool
-relacionesValidas u r = (usuariosDeRelacionValidos u r) && (relacionesAsimetricas u r) && (noHayRelacionesRepetidas u r)
--}
-
-
 --Recibe una lista de Relaciones y otra de Usuarios. Da True si todas las Relaciones esten definidas entre Usuarios de la lista 
 usuariosDeRelacionValidos :: [Usuario] -> [Relacion] -> Bool
 usuariosDeRelacionValidos u [] = True
 usuariosDeRelacionValidos u (r:rs) = (pertenece (pi1 r) u) && (pertenece (pi2 r) u) && (usuariosDeRelacionValidos u rs)
-
-
-{-
--- Recibe una lista de Relaciones y devuelve True si para toda relacion, su simetria no esta en la lista
-relacionesAsimetricas :: [Relacion] -> Bool
-relacionesAsimetricas (r:[]) = True
-relacionesAsimetricas (r:rs) = not( pertenece (invertirLista r) rs) && (relacionesAsimetricas rs) 
--}
 
 
 -- Recibe una lista de Relaciones y retorna True si no hay relaciones repetidas, notese que cuenta una permutacion como una relacion distinta                             

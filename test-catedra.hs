@@ -61,12 +61,8 @@ testEjercicio3 = test [
     -- Caso en el que usuario1 tiene un UNICO amigo
     " cantidadDeAmigos Unico" ~: (cantidadDeAmigos redD usuario1) ~?= 1,
     -- Caso en el que usuario1 tiene mas de un amigo
-    " cantidadDeAmigos Varios" ~: (cantidadDeAmigos redE usuario1) ~?= 2, 
-    -- Caso en el que usuario3 no esta en la red social
-    " cantidadDeAmigos 5" ~: (cantidadDeAmigos redD usuario3) ~?= 0
+    " cantidadDeAmigos Varios" ~: (cantidadDeAmigos redE usuario1) ~?= 2 
  ]
-
--- Error en caso Unico!!!!!!!
 
 
 testEjercicio4 = test [

@@ -2,7 +2,7 @@ module Test where
 
 
 import Test.HUnit
-import Resoluciones
+import Solucion
 
 
 

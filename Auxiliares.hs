@@ -94,7 +94,6 @@ noHayIdsRepetidos [_] = True
 noHayIdsRepetidos ((x,_):xs) = not (comparaID x xs) && noHayIdsRepetidos xs
 
 -- Verifica si el x (ID) ingresado se repite en el resto de la lista
-
 comparaID :: Integer -> [Usuario] -> Bool
 comparaID _ [] = False
 comparaID x ((y,_):ys) = x == y || comparaID x ys

@@ -6,7 +6,7 @@
 -- Integrante 3: Peralta Diessler Bernardo, bernardodiessler@gmail.com, 1395/21
 -- Integrante 4: Galli Casado Sastre Lucas Federico, lucasgalli01@gmail.com, 739/21
 
-module Resoluciones where
+module Solucion where
 
 import Auxiliares 
 

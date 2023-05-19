@@ -55,7 +55,7 @@ estaRobertoCarlos ([],r,p) = False
 estaRobertoCarlos ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 1000000 = estaRobertoCarlos (us,r,p)
                                | cantidadDeAmigos ((u:us),r,p) u > 1000000 = True
 
--- Creamos una función auxiliar de estaRobertoCarlos para poder probar si está bien planteada 
+-- Creamos una función auxiliar de estaRobertoCarlos para realizar casos de testeo
 estaRobertoCarlosTest :: RedSocial -> Bool
 estaRobertoCarlosTest ([],r,p) = False
 estaRobertoCarlosTest ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 10 = estaRobertoCarlosTest (us,r,p)
@@ -103,13 +103,22 @@ interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (li
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u1 u2 = recursion10 r (amigosDe r u1) u2  (length (usuarios r))
 
+-- Dada una lista de usuarios y un usuario u, devuelve true si u es amigo de algun usuario de la lista.
 recursion10 :: RedSocial -> [Usuario] -> Usuario -> Int -> Bool
 recursion10 r u u2 0 = False
 recursion10 r u u2 n | pertenece u2 (amigosDeLista r u) == True = True
                      | otherwise = (recursion10 r (amigosDeLista r u) u2 (n-1))
-
+                     
+-- Recibe una lista de usuarios, devuelve un lista con los amigos de los usuarios ingresados
 amigosDeLista :: RedSocial -> [Usuario] -> [Usuario]
 amigosDeLista r [] = []
 amigosDeLista r (u:us) = (amigosDe r u) ++ amigosDeLista r us
+
+
+
+
+
+
+
 
 

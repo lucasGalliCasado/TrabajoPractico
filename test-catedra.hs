@@ -67,8 +67,8 @@ testEjercicio3 = test [
 
 testEjercicio4 = test [
     -- En el test de la catedra hay varios usuarios que comparten la propiedad de maxima cantidad de amigos
-    -- Existe un uncio usuario con la maxima cantidad de amigos
     " usuarioConMasAmigos 1" ~: expectAny (usuarioConMasAmigos redA) [usuario2, usuario4],
+   -- Existe un uncio usuario con la maxima cantidad de amigos
     "usuarioConMasAmigos-Unico" ~: expectAny (usuarioConMasAmigos redC) [usuario1]
 
  ]
@@ -76,7 +76,7 @@ testEjercicio4 = test [
 testEjercicio5 = test [
     -- Testeo de la Catedra
     " estaRobertoCarlos-False" ~: (estaRobertoCarlos redA) ~?= False,
-   -- Usamos la función estaRobertoCarlosTest para probar el caso True
+   -- Usamos la función auxiliar estaRobertoCarlosTest para probar el caso True
     " estaRobertoCarlosTest-True" ~: (estaRobertoCarlosTest redR) ~?= True
 
  ]
@@ -127,7 +127,7 @@ testEjercicio10 = test [
     " existeSecuenciaDeAmigos-Long" ~: (existeSecuenciaDeAmigos redA usuario1 usuario3) ~?= True,
     -- Caso en donde NO existe un secuencia de amigos
     "existeSecuenciaDeAmigos-False" ~: (existeSecuenciaDeAmigos redC usuario1 usuario7) ~?= False,
-    -- El caso de la catedra prueba una cadena 'larga' (osea los usuarios en cuestion no son amigos), este caso prueba el caso 'corto' los usuario son amigos
+    -- El caso de la catedra prueba una cadena 'larga' (osea los usuarios en cuestion no son amigos), este caso prueba el caso 'corto', i.e. los usuario son amigos
     "existeSecuenciaDeAmigos-Short" ~: (existeSecuenciaDeAmigos redC usuario1 usuario6) ~?= True
 
  ]
@@ -162,6 +162,7 @@ usuario17 = (17, "Yami")
 usuario18 =(18, "Juan")
 usuario19 = (19, "María")
 usuario20 = (20, "Pedro")
+
 -- Relaciones "Default"
 relacion1_2 = (usuario1, usuario2)
 relacion1_3 = (usuario1, usuario3)

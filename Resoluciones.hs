@@ -11,7 +11,6 @@ module Resoluciones where
 import Auxiliares 
 
 --- | Ejericio 1 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra y testeo propio
 nombresDeUsuarios :: RedSocial -> [String]
 nombresDeUsuarios r = proyectarNombres (usuarios r)
 
@@ -20,7 +19,6 @@ proyectarNombres [] = []
 proyectarNombres (us:uss) = (pi2 us): proyectarNombres uss
 
 --- | Ejericio 2 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra y testeo propio
 -- Recibe como parametros una RedSocial y un Usuario de la misma. Devuelve una lista conteniendo a todos los usuarios de la red con
 -- los cuales el Usuario ingresado tiene una relacion de amistad
 amigosDe :: RedSocial -> Usuario -> [Usuario]
@@ -34,14 +32,12 @@ pruebaRelacion rs (us:uss) u | ((pertenece (us,u) rs) == True) || ((pertenece (u
 
 
 --- | Ejericio 3 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra
 -- Recibe un usuario y devuelve la cantidad de amigos que tiene
 cantidadDeAmigos :: RedSocial -> Usuario -> Int
 cantidadDeAmigos r u = length(amigosDe r u)
 
 
 --- | Ejericio 4 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra y testeo propio
 -- Devuelve el usuario con mayor cantidad de amigos
 -- Estoy al tanto de que la recursion no cumple con el requiere. Lo consulte y me dijeron que no pasa nada 
 
@@ -53,7 +49,6 @@ usuarioConMasAmigos ((u:us),r,p) | us == [] = u
 
 
 --- | Ejericio 5 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-cátedra y testeo propio
 -- Recibe una red social y devuelve true si un usuario de la red social tiene más de un millón de amigos
 estaRobertoCarlos :: RedSocial -> Bool
 estaRobertoCarlos ([],r,p) = False
@@ -67,7 +62,6 @@ estaRobertoCarlosTest ((u:us),r,p) | cantidadDeAmigos ((u:us),r,p) u <= 10 = est
                                    | cantidadDeAmigos ((u:us),r,p) u > 10 = True
 
 --- | Ejericio 6 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test cátedra y testeo propio
 -- Recibe una red social y un usuario. Devuelve una lista de todas las publicaciones del usuario en cuestión.
 publicacionesDe :: RedSocial -> Usuario -> [Publicacion]
 publicacionesDe rs u = todasLasPublicacionesDe (publicaciones rs) u 
@@ -80,7 +74,6 @@ todasLasPublicacionesDe (p:ps) u | (usuarioDePublicacion p == u) = p : todasLasP
 
 
 --- | Ejericio 7 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra y testeo propio
 -- Recibe una Red y un Usuario, devuelve una lista de las publicaciones a las que le ha dado like el usuario en cuestion
 publicacionesQueLeGustanA :: RedSocial -> Usuario -> [Publicacion]
 publicacionesQueLeGustanA (us,r,[]) u = []
@@ -89,14 +82,12 @@ publicacionesQueLeGustanA (us,r,(p:ps)) u | pertenece u (likesDePublicacion p) =
 
 
 --- | Ejericio 8 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test-catedra y testeo propio
 -- Dados dos usuarios nos da True si le han dado like a las mismas publicaciones
 lesGustanLasMismasPublicaciones :: RedSocial -> Usuario -> Usuario -> Bool
 lesGustanLasMismasPublicaciones r u1 u2 = mismosElementos (publicacionesQueLeGustanA r u1) (publicacionesQueLeGustanA r u2)
 
 
 --- | Ejericio 9 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test Catedra y testeo propio
 -- Recibe una red social y un Usuario U, devuelve True si existe al menos un usuario que le haya dado like a todas las publicaciones de U 
 tieneUnSeguidorFiel :: RedSocial -> Usuario -> Bool
 tieneUnSeguidorFiel r u | length(interseccionLikes (publicacionesDe r u)) > 0 = True
@@ -108,7 +99,6 @@ interseccionLikes (p:ps) = interseccion (interseccion (likesDePublicacion p) (li
 
 
 --- | Ejericio 10 |-----------------------------------------------------------------------------------------------------------------------------
--- Cumple test Catedra y testeo propio
 -- Recibe una red social y dos usuarios de la misma. Devuelve True si existe una cadena de amigos entre los 2
 existeSecuenciaDeAmigos :: RedSocial -> Usuario -> Usuario -> Bool
 existeSecuenciaDeAmigos r u1 u2 = recursion10 r (amigosDe r u1) u2  (length (usuarios r))
